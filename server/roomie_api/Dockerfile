@@ -5,4 +5,4 @@ COPY poetry.lock ./
 COPY ./ ./
 RUN pip install poetry
 RUN poetry install
-CMD ["poetry", "run", "flask", "--app", "src/roomie_api", "run", "--host=0.0.0.0"]
+CMD ["poetry", "run", "flask", "--app", "src/roomee_api", "run", "--host=0.0.0.0"]

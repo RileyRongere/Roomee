@@ -2,7 +2,7 @@ version: '3.8'
 
 x-common-variables:
   &common-variables
-  MYSQL_DATABASE: roomie
+  MYSQL_DATABASE: roomee
   MYSQL_USER: MYSQL_USER
   MYSQL_PASSWORD: MYSQL_PASSWORD
 
@@ -35,11 +35,11 @@ services:
   api:
     build:
       dockerfile: Dockerfile
-      context: "./server/roomie_api"
+      context: "./server/roomee_api"
     depends_on:
       - mysql_db
     volumes:
-      - ./server/roomie_api:/app
+      - ./server/roomee_api:/app
     environment:
       <<: *common-variables
       MYSQL_HOST_IP: mysql_db
@@ -50,10 +50,10 @@ services:
       - CHOKIDAR_USEPOLLING=true
     build:
       dockerfile: Dockerfile
-      context: ./roomie-fe
+      context: ./roomee-fe
     volumes:
       - /app/node_modules
-      - ./roomie-fe:/app
+      - ./roomee-fe:/app
 
   adminer:
     image: adminer:latest
