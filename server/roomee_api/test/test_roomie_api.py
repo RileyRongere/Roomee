@@ -13,9 +13,6 @@ def test_client():
 
 
 def test_hello_world(test_client):
-    # create a test client
-    # client = app.test_client()
-
     # make a GET request to the `/hello` endpoint
     response = test_client.get("/hello")
 
@@ -27,11 +24,12 @@ def test_hello_world(test_client):
 
 def test_get_users(test_client):
     # make a GET request to the `/users` endpoint
-    response = test_client.get("/hello")
+    response = test_client.get("/users")
+    data = json.loads(response.data.decode())
 
     # check if response status code is 200 and contains bytes object
     assert response.status_code == 200
-    assert b"Hello, World!" in response.data
+    assert data["user_ids"] == []
 
 
 # Tests if user exists using a both a valid and invalid id

@@ -18,7 +18,7 @@ def get_users():
     return jsonify({"user_ids": user_ids})
 
 
-# Method to return every user to the endpoint /api/users
+# Method to return a boolean to the endpoint /api/users if user_id exists
 @app.route("/users", methods=["POST"])
 def check_user_exists():
     # Fetch user_id to check from response
