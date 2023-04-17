@@ -63,3 +63,33 @@ def test_get_questions(test_client):
     # check if response status code is 200 and contains bytes object
     assert response.status_code == 200
     assert data["question_ids"] == []
+def test_get_answers(test_client):
+    # make a GET request to the '/answers' endpoint
+    response = test_client.get("/answers")
+    data = json.loads(response.data.decode())
+
+    # check is response status code is 200 and contains bytes object
+    assert response.status_code == 200
+    assert data["answer_ids"] == []
+
+
+def test_check_answers(test_client):
+    # create params for POST
+    headers = {"Content-Type": "application/json"}
+    payload = {"answer_id": 27}
+    false_payload = {"answer_id": 40}
+
+    # create POSTs
+    response = test_client.post("/answers", json=payload, headers=headers)
+    data = json.loads(response.data.decode())
+
+    false_response = test_client.post("/answers", json=false_payload, headers=headers)
+    false_data = json.loads(response.data.decode())
+
+    # good response and True boolean
+    assert response.status_code == 200
+    assert data["answer_exists"]
+
+    # good response and False boolean
+    assert false_response.status_code == 200
+    assert false_data["answer_exists"]
