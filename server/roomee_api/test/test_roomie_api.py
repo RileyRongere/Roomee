@@ -1,4 +1,4 @@
-from roomee_api import app
+from src.roomee_api import app
 from pytest import fixture
 import json
 
@@ -53,6 +53,7 @@ def test_check_user(test_client):
     # Good response and a False boolean
     assert false_response.status_code == 200
     assert false_data["user_exists"]
+
 
 def test_get_questions(test_client):
     # make a GET request to the `/questions` endpoint

@@ -67,7 +67,7 @@ def user_is_complete(username):
         return jsonify({'error': 'User not found'})
 
 # Method to return all questions to an endpoint /api/questions
-@app.route("/questions", methods = ["GET"])
+@app.route("/questions", methods=["GET"])
 def get_questions():
     question_ids = []
     return jsonify({"question_ids": question_ids})
