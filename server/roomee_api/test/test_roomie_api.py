@@ -53,3 +53,12 @@ def test_check_user(test_client):
     # Good response and a False boolean
     assert false_response.status_code == 200
     assert false_data["user_exists"]
+
+def test_get_questions(test_client):
+    # make a GET request to the `/questions` endpoint
+    response = test_client.get("/questions")
+    data = json.loads(response.data.decode())
+
+    # check if response status code is 200 and contains bytes object
+    assert response.status_code == 200
+    assert data["question_ids"] == []

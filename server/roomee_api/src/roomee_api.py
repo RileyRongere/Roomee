@@ -33,6 +33,7 @@ def check_user_exists():
     else:
         return jsonify({"user_exists": False})
     
+
 @app.route("/answers", methods=["GET"])
 def get_answers():
     # Mock list of user answers
@@ -65,3 +66,8 @@ def user_is_complete(username):
     else:
         return jsonify({'error': 'User not found'})
 
+# Method to return all questions to an endpoint /api/questions
+@app.route("/questions", methods = ["GET"])
+def get_questions():
+    question_ids = []
+    return jsonify({"question_ids": question_ids})
