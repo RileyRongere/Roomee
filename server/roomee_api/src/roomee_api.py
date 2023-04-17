@@ -32,3 +32,24 @@ def check_user_exists():
         return jsonify({"user_exists": True})
     else:
         return jsonify({"user_exists": False})
+    
+@app.route("/answers", methods=["GET"])
+def get_answers():
+    # Mock list of user answers
+    answer_ids = []
+
+    return jsonify({"answer_ids": answer_ids})
+
+@app.route("/answers", methods=["POST"])
+def check_answers_exist():
+    # Fetch answer_id to check
+    data = request.get_json()
+    answer_id = data["answer_id"]
+
+    # Mock list of answer ids
+    answer_ids = [27, 8, 90]
+
+    if answer_id in answer_ids:
+        return jsonify({"answer_exists": True})
+    else:
+        return jsonify({"answer_exists": False})
