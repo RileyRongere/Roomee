@@ -9,6 +9,7 @@ packages = []
 [tool.poetry.dependencies]
 python = "^3.9"
 flask = "^2.2.3"
+mysql-connector-python = "^8.0.32"
 
 
 [tool.poetry.group.dev.dependencies]
