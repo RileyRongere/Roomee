@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import LoginForm from './loginForm';
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
           Learn React
         </a>
       </header>
+    </div>
+    <div>
+      <h1>Login Form</h1>
+      <LoginForm />
     </div>
   );
 }
