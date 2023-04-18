@@ -1,4 +1,5 @@
 import logo from '../logo.svg';
+import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
@@ -16,9 +17,7 @@ const Home = () => {
                 >
                     Learn React
         </a>
-                <a href="/dummy">
-                    Go to dummy
-                </a>
+                <Link to={"dummy"}>Go to Dummy</Link>
 
             </header>
         </div>
