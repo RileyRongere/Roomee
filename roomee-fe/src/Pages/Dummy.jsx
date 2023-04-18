@@ -1,4 +1,5 @@
 import logo from '../logo.svg';
+import { Link } from "react-router-dom";
 
 const Dummy = () => {
     return (
@@ -8,9 +9,7 @@ const Dummy = () => {
                 <p>
                     This is a dummy second route
         </p>
-                <a href="/">
-                    Go to Home
-                </a>
+                <Link to={"/"}>Go Home</Link>
             </header>
         </div>
     );
