@@ -1,12 +1,14 @@
+# Authors: Riley Rongere
+
 # objects should only be created when api requests information
-# t
+
+# COMMENTED OUT FUNCITONS CAN BE USER IF NEED BE. IF NOT NEEDED DELETE RR
 
 class Question:
     '''
     python object that serves as the format for questions to be stored in the database
     '''
-    def __init__(self, question, id):
-        # initialize the object with a unique id
+    def __init__(self, id, question):
         self.__id = id
         self.__question = question
 
@@ -32,8 +34,7 @@ class User:
     '''
     python object that serves as the format for Users to be stored in the database
     '''
-    def __init__(self, email, password, id):
-        # initialize the object with a unique id
+    def __init__(self, id, email, password):
         self.__id = id
         self.__email = email
         self.__password = password
@@ -76,8 +77,7 @@ class Matches:
     '''
     python object that serves as the format for Matches to be stored in the database
     '''
-    def __init__(self, user1, user2, percent_match, id):
-        # initialize the object with a unique id
+    def __init__(self, id, user1, user2, percent_match):
         self.__id = id
         self.__user1 = user1
         self.__user2 = user2
@@ -93,33 +93,32 @@ class Matches:
     def return_dict(self):
         return self.__dictionary
 
-    def get_id(self):
-        return self.__id
+    # def get_id(self):
+    #     return self.__id
 
-    def get_user1(self):
-        return self.__user1
+    # def get_user1(self):
+    #     return self.__user1
 
-    def get_user2(self):
-        return self.__user2
+    # def get_user2(self):
+    #     return self.__user2
     
-    def get_percent_match(self):
-        return self.__percent_match
+    # def get_percent_match(self):
+    #     return self.__percent_match
     
-    def update_user1(self,new_user):
-        self.__user1 = new_user
+    # def update_user1(self,new_user):
+    #     self.__user1 = new_user
 
-    def update_user2(self,new_user):
-        self.__user2 = new_user
+    # def update_user2(self,new_user):
+    #     self.__user2 = new_user
 
-    def update_percent_match(self,new_percent_match):
-        self.__percent_match = new_percent_match
+    # def update_percent_match(self,new_percent_match):
+    #     self.__percent_match = new_percent_match
 
 class Answers:
     '''
-    python object that serves as the format for Answers to be stored in the database
+    python object that serves as the format for Answers to be passed to API
     '''
-    def __init__(self, user_id, question_id, answer, id):
-        # initialize the object with a unique id
+    def __init__(self, id, user_id, question_id, answer):
         self.__id = id
         self.__user_id = user_id
         self.__question_id = question_id

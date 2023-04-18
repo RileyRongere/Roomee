@@ -1,1 +1,0 @@
-#For use by the db team to convert py objects to sql queries and creations
