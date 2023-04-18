@@ -9,6 +9,7 @@ packages = []
 [tool.poetry.dependencies]
 python = "^3.9"
 flask = "^2.2.3"
+marshmallow = "^3.19.0"
 
 
 [tool.poetry.group.dev.dependencies]
