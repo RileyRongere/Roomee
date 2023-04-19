@@ -6,8 +6,30 @@ app = Flask(__name__)
 
 DATABASE = 'roomee.db'
 
+# Mocked methods for use by FE team
+
+# POST a dict with (Check test file for exact structure of data)
+@app.route('/questions', methods=['POST'])
+def post_questions():
+
+    data = request.get_json()
+    # Check if all required elements are present
+    try:
+        user_id = data['user_id']
+
+        question_id = data['question_id']
+        value = data['value']
+
+    except KeyError as e:
+        missing_param = str(e).strip("'")
+        return jsonify({'error': f'Missing parameter: {missing_param}'}), 400
+
+    # Return a success message or the created user object
+    return jsonify({'message': 'User created successfully'}), 201
+
 # Fetch local database
 def get_db():
+
     if 'db' not in g:
         g.db = sqlite3.connect(DATABASE)
     return g.db
@@ -15,6 +37,7 @@ def get_db():
 # Close DB when app closes
 @app.teardown_appcontext
 def close_db(e=None):
+
     db = g.pop('db', None)
     if db is not None:
         db.close()

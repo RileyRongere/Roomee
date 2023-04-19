@@ -36,3 +36,25 @@ def test_post_users(test_client):
     # Bad response
     assert false_response.status_code == 201 # Successful POST, No payload schema implemented
     assert type(data) == dict
+
+
+def test_post_questions(test_client):
+    # Create params for POST
+    headers = {"Content-Type": "application/json"}
+    payload = {"question_id":1, "user_id":1234, "value": 13}
+    false_payload = {"question_id": 66, "value": 13}
+
+    # Create POSTs
+    response = test_client.post("/questions", json=payload, headers=headers)
+    data = json.loads(response.data.decode())
+
+    false_response = test_client.post("/questions", json=false_payload, headers=headers)
+    false_data = json.loads(false_response.data.decode())
+
+    # Good response and a True boolean
+    assert response.status_code == 201 # Successful POST
+    assert type(data) == dict
+
+    # Bad response
+    assert false_response.status_code == 400 # Error
+    assert false_data == {"error": "Missing parameter: user_id"}
