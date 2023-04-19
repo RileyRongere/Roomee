@@ -1,24 +1,45 @@
-# Authors: Riley Rongere
+# Authors: Riley Rongere, Emma Gerdeman
 
 from backend_py_objects import *
+import sqlite3
 
 # For use by the db team to convert info from the API to sql queries and inserts
 
 def insert_user(email,password):
-    # Sql insert containing email and password
-    pass
+   # Sql insert containing email and password
+   connection = sqlite3.connect('setup.sql')
+   curr = connection.cursor()
+   curr.execute("INSERT INTO user (email, password) VALUES (?, ?)", (email, password))
+   connection.commit()
+   connection.close()
+
 
 def insert_question(question):
-    # Sql insert containing question
-    pass
+   # Sql insert containing question
+   connection = sqlite3.connect('setup.sql')
+   curr = connection.cursor()
+   curr.execute("INSERT INTO question (question) VALUES (?)", (question))
+   connection.commit()
+   connection.close()
+
 
 def insert_answer(question_id,user_id,answer):
-    # Sql insert containing the username, user_id, and password
-    pass
+   # Sql insert containing the username, user_id, and password
+   connection = sqlite3.connect('setup.sql')
+   curr = connection.cursor()
+   curr.execute("INSERT INTO answer (question_id, user_id, answer) VALUES (?, ?, ?)", (question_id, user_id, answer))
+   connection.commit()
+   connection.close()
+
 
 def insert_match(user1,user2,percent_match):
-    # Sql insert containing user1, user2, percent_match
-    pass
+   # Sql insert containing user1, user2, percent_match
+   connection = sqlite3.connect('setup.sql')
+   curr = connection.cursor()
+   curr.execute("INSERT INTO matches (user1, user2, percent_match) VALUES (?, ?, ?)", (user1, user2, percent_match))
+   connection.commit()
+   connection.close()
+
 
 
 #THE BELOW IS A POTENTIAL PARTIAL IMPLEMENTATION OF THE GET_USER FUNCTION. FEEL FREE TO CHANGE COMPLETELY
