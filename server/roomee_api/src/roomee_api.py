@@ -53,3 +53,15 @@ def check_answers_exist():
         return jsonify({"answer_exists": True})
     else:
         return jsonify({"answer_exists": False})
+
+#Check if user data is complete
+@app.route("/user_is_complete/<username>", methods=['GET'])
+def user_is_complete(username):
+    #Mock user
+    user={'Joe':{'questions':[]}}
+    if username in user:
+        completed = bool(users[username]['questions'])
+        return jsonify({'is_completed': completed})
+    else:
+        return jsonify({'error': 'User not found'})
+
