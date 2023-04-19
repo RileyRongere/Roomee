@@ -1,0 +1,41 @@
+server-build:
+  image: "python:3.9"
+  stages:
+    - Python Static Analysis
+    - Python Test
+
+  variables:
+    IN_CI: "true"
+
+  before_script:
+    - python --version
+    - cd server
+    - pip install poetry
+    - poetry install --no-root
+
+  black:
+    stage: Python Static Analysis
+    script:
+      - poetry run black --check .
+
+  pytest:
+    stage: Python Test
+    script:
+      - poetry run pytest --cov=src .
+
+frontend-build:
+  image: "node:alpine"
+  stages:
+    - Frontend Static Analysis
+    - Frontend Test
+  variables:
+    IN_CI: "true"
+
+  before_script:
+    - cd roomee-fe
+    - yarn install
+
+  prettier:
+    stage: Frontend Static Analysis
+    script:
+      - 
