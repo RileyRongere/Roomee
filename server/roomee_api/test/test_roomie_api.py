@@ -63,6 +63,8 @@ def test_get_questions(test_client):
     # check if response status code is 200 and contains bytes object
     assert response.status_code == 200
     assert data["question_ids"] == []
+
+
 def test_get_answers(test_client):
     # make a GET request to the '/answers' endpoint
     response = test_client.get("/answers")

@@ -4,11 +4,6 @@ import os
 app = Flask(__name__)
 
 
-@app.route("/hello")
-def hello_world():
-    return "<p>Hello, World!</p>"
-
-
 # Method to return every user to the endpoint /api/users
 @app.route("/users", methods=["GET"])
 def get_users():
@@ -32,7 +27,7 @@ def check_user_exists():
         return jsonify({"user_exists": True})
     else:
         return jsonify({"user_exists": False})
-    
+
 
 @app.route("/answers", methods=["GET"])
 def get_answers():
@@ -40,6 +35,7 @@ def get_answers():
     answer_ids = []
 
     return jsonify({"answer_ids": answer_ids})
+
 
 @app.route("/answers", methods=["POST"])
 def check_answers_exist():
@@ -55,16 +51,18 @@ def check_answers_exist():
     else:
         return jsonify({"answer_exists": False})
 
-#Check if user data is complete
-@app.route("/user_is_complete/<username>", methods=['GET'])
+
+# Check if user data is complete
+@app.route("/user_is_complete/<username>", methods=["GET"])
 def user_is_complete(username):
-    #Mock user
-    user={'Joe':{'questions':[]}}
+    # Mock user
+    user = {"Joe": {"questions": []}}
     if username in user:
-        completed = bool(users[username]['questions'])
-        return jsonify({'is_completed': completed})
+        completed = bool(users[username]["questions"])
+        return jsonify({"is_completed": completed})
     else:
-        return jsonify({'error': 'User not found'})
+        return jsonify({"error": "User not found"})
+
 
 # Method to return all questions to an endpoint /api/questions
 @app.route("/questions", methods=["GET"])
