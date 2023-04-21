@@ -11,17 +11,6 @@ def test_client():
 
 # Integration tests for client-app interaction
 
-
-def test_hello_world(test_client):
-    # make a GET request to the `/hello` endpoint
-    response = test_client.get("/hello")
-
-    # check if response status code is 200 and contains bytes object
-    assert response.status_code == 200
-
-    assert b"Hello, World!" in response.data
-
-
 def test_get_users(test_client):
     # make a GET request to the `/users` endpoint
     response = test_client.get("/users")
@@ -95,3 +84,8 @@ def test_check_answers(test_client):
     # good response and False boolean
     assert false_response.status_code == 200
     assert false_data["answer_exists"]
+
+# tests user endpoint functionality
+def test_get_user_creation(test_client):
+    response = test_client.get("/user/False")
+    assert json.loads(response.data.decode()) == "False"
