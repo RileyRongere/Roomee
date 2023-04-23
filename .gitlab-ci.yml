@@ -9,7 +9,7 @@ black:
   image: "python:3.9"
   stage: Static Analysis
   before_script:
-    - cd server
+    - cd server/roomee_api
     - pip install poetry
     - poetry install --no-root
   script:
@@ -19,7 +19,7 @@ pytest:
   image: "python:3.9"
   stage: Test
   before_script:
-    - cd server
+    - cd server/roomee_api
     - pip install poetry
     - poetry install --no-root
   script:
