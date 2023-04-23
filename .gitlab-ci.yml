@@ -35,7 +35,7 @@ prettier:
 
 jest:
   image: "node:alpine"
-  stage: Fronted Test
+  stage: Frontend Test
   script:
     - cd roomee-fe
     - yarn install
