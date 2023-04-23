@@ -1,42 +1,44 @@
 stages:
-  - Frontend Static Analysis
-  - Frontend Test
-  - Python Static Analysis
-  - Python Test
+  - Static Analysis
+  - Test
 
 variables:
   IN_CI: "true"
 
 black:
   image: "python:3.9"
-  stage: Python Static Analysis
-  script:
+  stage: Static Analysis
+  before_script:
     - cd server
     - pip install poetry
     - poetry install --no-root
+  script:
     - poetry run black --check .
 
 pytest:
   image: "python:3.9"
-  stage: Python Test
-  script:
+  stage: Test
+  before_script:
     - cd server
     - pip install poetry
     - poetry install --no-root
+  script:
     - poetry run pytest --cov=src .
 
 prettier:
   image: "node:alpine"
-  stage: Frontend Static Analysis
-  script:
+  stage: Static Analysis
+  before_script:
     - cd roomee-fe
     - yarn install
+  script:
     - yarn prettier --check .
 
 jest:
   image: "node:alpine"
-  stage: Frontend Test
-  script:
+  stage: Test
+  before_script:
     - cd roomee-fe
     - yarn install
+  script:
     - yarn test
