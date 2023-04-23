@@ -38,4 +38,9 @@ frontend-build:
   prettier:
     stage: Frontend Static Analysis
     script:
-      - 
+      - yarn prettier --check .
+  
+  jest:
+    stage: Fronted Test
+    script:
+      - yarn test
