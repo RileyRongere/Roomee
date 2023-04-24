@@ -6,8 +6,8 @@ app = Flask(__name__)
 
 
 # method to return user from the insert_query_DB.py file
-def get_user(id):
-    user = query_user(id)
+def get_user(username):
+    user = query_user(username)
 
     if user == {}:
         # If user dictionary is empty, return a 404 error
