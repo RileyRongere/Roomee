@@ -5,6 +5,8 @@ app = Flask(__name__)
 
 
 # Method to return every user to the endpoint /api/users
+
+#This probably doesn't need an endpoint associated with it. I don't think it will be called from outside the API -Kieran
 @app.route("/users", methods=["GET"])
 def get_users():
     # Mock list of user ids
@@ -14,6 +16,8 @@ def get_users():
 
 
 # Method to return a boolean to the endpoint /api/users if user_id exists
+
+#Same as above. This probably won't be called from the outside and so doesn't really need an endpoint -Kieran
 @app.route("/users", methods=["POST"])
 def check_user_exists():
     # Fetch user_id to check from response
@@ -29,36 +33,38 @@ def check_user_exists():
         return jsonify({"user_exists": False})
 
 
-@app.route("/answers", methods=["GET"])
+@app.route("/answers", methods=["GET", "POST"])
+#I suspect this will need to be altered to take a username parameter so we know whose answers we're checking - Kieran
 def get_answers():
-    # Mock list of user answers
-    answer_ids = []
+    if request.method == "GET":
+        # Mock list of user answers
+        answer_ids = []
 
-    return jsonify({"answer_ids": answer_ids})
+        return jsonify({"answer_ids": answer_ids})
 
+    if request.method == "POST":
+        # Fetch answer_id to check
+        data = request.get_json()
+        answer_id = data["answer_id"]
 
-@app.route("/answers", methods=["POST"])
-def check_answers_exist():
-    # Fetch answer_id to check
-    data = request.get_json()
-    answer_id = data["answer_id"]
+        # Mock list of answer ids
+        answer_ids = [27, 8, 90]
 
-    # Mock list of answer ids
-    answer_ids = [27, 8, 90]
-
-    if answer_id in answer_ids:
-        return jsonify({"answer_exists": True})
-    else:
-        return jsonify({"answer_exists": False})
+        if answer_id in answer_ids:
+            return jsonify({"answer_exists": True})
+        else:
+            return jsonify({"answer_exists": False})
 
 
 # Check if user data is complete
+
+#Another that might not need an endpoint -Kieran
 @app.route("/user_is_complete/<username>", methods=["GET"])
 def user_is_complete(username):
     # Mock user
     user = {"Joe": {"questions": []}}
     if username in user:
-        completed = bool(users[username]["questions"])
+        completed = bool(user[username]["questions"])
         return jsonify({"is_completed": completed})
     else:
         return jsonify({"error": "User not found"})
