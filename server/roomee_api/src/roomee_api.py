@@ -1,20 +1,25 @@
 from flask import Flask, request, jsonify
 import os
-from insert_query_DB import insert_user, query_user
+from insert_query_DB import insert_user, query_user, query_answer
 
 app = Flask(__name__)
 
 
 # method to return user from the insert_query_DB.py file
+# note that this does not check if the user has been created.
 def get_user(username):
     user = query_user(username)
-
-    if user == {}:
-        # If user dictionary is empty, return a 404 error
-        response = {"error": "User does not exist"}
-        return jsonify(response), 404
-
     return user
+
+
+# method to return all answers from the insert_query_DB.py file
+# note that this does not check if the user has completed the quiz.
+def get_answers(id):
+    answers = query_answer(
+        id
+    )  ##CHANGE WHEN RILEY CHANGES THE FUNCTION, We wish to have all answers from this call
+
+    return answers
 
 
 # Method to return every user to the endpoint /api/users
