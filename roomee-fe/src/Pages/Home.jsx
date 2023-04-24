@@ -18,7 +18,7 @@ const Home = () => {
                     Learn React
         </a>
                 <Link to={"dummy"}>Go to Dummy</Link>
-
+                <Link to={"quiz"}>Go to Quiz</Link>
             </header>
         </div>
     );
