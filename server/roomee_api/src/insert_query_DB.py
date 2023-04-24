@@ -1,25 +1,28 @@
-# Authors: Riley Rongere, Emma Gerdeman
+# Authors: Riley Rongere, Emma Gerdeman, Lane Affield 
 
 from backend_py_objects import *
 import sqlite3
-class database(self):
-   pass
+class database:
+   def __init__(self):
+      pass
 
 class SQLite(database):
-   def __init__(self):
-      connection = sqlite3.connect('setup.sql')
-      curr = connection.cursor()
+   def __init__(self,db_file):
+      super().__init__() 
+      #connection = sqlite3.connect(db_file)
+      #curr = connection.cursor()
+      self.db_file = db_file
 
 # For use by the db team to convert info from the API to sql queries and inserts
 
    def insert_user(self,email,password):
    # Sql insert containing email and password
-      connection = sqlite3.connect('setup.sql')
-      curr = connection.cursor()
-      query = "INSERT INTO USER (Email, Password) VALUES (%s, %s)"
-      curr.execute(query , (email, password) )
-      connection.commit()
-      connection.close()
+      query = "INSERT INTO USER (Email, Password) VALUES (?, ?)"
+      with sqlite3.connect(self.db_file ) as conn: 
+         with conn.cursor as curr:
+            curr.execute(query , (email, password) )
+         conn.commit()
+      conn.close()
 
 #NOT NECESSARY
    '''
@@ -34,21 +37,22 @@ class SQLite(database):
 
    def insert_answer(self,question_id,user_id,answer):
       # Sql insert containing the username, user_id, and password
-      connection = sqlite3.connect('setup.sql')
-      curr = connection.cursor()
-      query = "INSERT INTO ANSWER (question_id, user_id, answer) VALUES (%s, %s, %i)"
-      curr.execute(query , (question_id, user_id, answer))
-      connection.commit()
-      connection.close()
+      query = "INSERT INTO ANSWER (Question_ID, User_ID, Answer) VALUES (?, ?, ?)"
+      with sqlite3.connect(self.db_file ) as conn: 
+         with conn.cursor as curr:      
+            curr.execute(query , (question_id, user_id, answer))
+         conn.commit()
+      conn.close()
 
 
    def insert_match(self, user1,user2,percent_match):
       # Sql insert containing user1, user2, percent_match
-      connection = sqlite3.connect('setup.sql')
-      curr = connection.cursor()
-      curr.execute("INSERT INTO MATCHES (user1, user2, percent_match) VALUES (%s, %s, %f)", (user1, user2, percent_match))
-      connection.commit()
-      connection.close()
+      with sqlite3.connect(self.db_file ) as conn: 
+         query = "INSERT INTO MATCHES (User1, User2, Percent_Match) VALUES (?, ?, ?)"
+         with conn.cursor as curr:
+            curr.execute(query, (user1, user2, percent_match))
+         conn.commit()
+      conn.close()
 
 
 
