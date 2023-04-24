@@ -1,13 +1,25 @@
 from flask import Flask, request, jsonify
 import os
-from insert_query_DB import insert_user
+from insert_query_DB import insert_user, query_user
 
 app = Flask(__name__)
 
 
+# method to return user from the insert_query_DB.py file
+def get_user(id):
+    user = query_user(id)
+
+    if user == {}:
+        # If user dictionary is empty, return a 404 error
+        response = {"error": "User does not exist"}
+        return jsonify(response), 404
+
+    return user
+
+
 # Method to return every user to the endpoint /api/users
 
-#This probably doesn't need an endpoint associated with it. I don't think it will be called from outside the API -Kieran
+# This probably doesn't need an endpoint associated with it. I don't think it will be called from outside the API -Kieran
 @app.route("/users", methods=["GET"])
 def get_users():
     # Mock list of user ids
@@ -18,7 +30,7 @@ def get_users():
 
 # Method to return a boolean to the endpoint /api/users if user_id exists
 
-#Same as above. This probably won't be called from the outside and so doesn't really need an endpoint -Kieran
+# Same as above. This probably won't be called from the outside and so doesn't really need an endpoint -Kieran
 @app.route("/users", methods=["POST"])
 def check_user_exists():
     # Fetch user_id to check from response
@@ -35,7 +47,7 @@ def check_user_exists():
 
 
 @app.route("/answers", methods=["GET", "POST"])
-#I suspect this will need to be altered to take a username parameter so we know whose answers we're checking - Kieran
+# I suspect this will need to be altered to take a username parameter so we know whose answers we're checking - Kieran
 def get_answers():
     if request.method == "GET":
         # Mock list of user answers
@@ -59,7 +71,7 @@ def get_answers():
 
 # Check if user data is complete
 
-#Another that might not need an endpoint -Kieran
+# Another that might not need an endpoint -Kieran
 @app.route("/user_is_complete/<username>", methods=["GET"])
 def user_is_complete(username):
     # Mock user
@@ -95,7 +107,7 @@ def user_creation(username):
             return jsonify({"error": "User not found"}), 404
 
     elif request.method == "POST":
-        # retrieve dictionary 
+        # retrieve dictionary
         username_request_object = request.get_json()
         # process dictionary from POST to figure out the task to perform on the given data
         # if completing a user's password setup (handler)
@@ -105,11 +117,11 @@ def user_creation(username):
 
         return jsonify({"message": f"{Task} Complete"})
 
+
 # DB method implementation      in-progress
 @app.route("/test", methods=["POST"])
 def test_user_create():
     user_details_object = request.get_json()
-    insert_user(user_details_object['email'], user_details_object['password'])
-
+    insert_user(user_details_object["email"], user_details_object["password"])
 
     return jsonify(user_details_object), 201

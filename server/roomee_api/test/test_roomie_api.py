@@ -11,6 +11,7 @@ def test_client():
 
 # Integration tests for client-app interaction
 
+
 def test_get_users(test_client):
     # make a GET request to the `/users` endpoint
     response = test_client.get("/users")
@@ -84,6 +85,7 @@ def test_check_answers(test_client):
     # good response and False boolean
     assert false_response.status_code == 200
     assert false_data["answer_exists"]
+
 
 # tests user endpoint functionality
 def test_get_user_creation(test_client):
