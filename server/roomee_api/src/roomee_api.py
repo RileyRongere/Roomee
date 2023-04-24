@@ -33,9 +33,9 @@ def check_user_exists():
         return jsonify({"user_exists": False})
 
 
-@app.route("/answers", methods=["GET", "POST"])
+@app.route("/answers/<username>", methods=["GET", "POST"])
 #I suspect this will need to be altered to take a username parameter so we know whose answers we're checking - Kieran
-def get_answers():
+def get_answers(username):
     if request.method == "GET":
         # Mock list of user answers
         answer_ids = []
