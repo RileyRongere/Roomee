@@ -3,7 +3,7 @@
 from backend_py_objects import *
 import sqlite3
 
-# For use by the db team to convert info from the API to sql queries and inserts
+# For use by the API team to query and insert objects to the DB
 
 def insert_user(email,password):
    # Sql insert containing email and password
