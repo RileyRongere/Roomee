@@ -41,40 +41,89 @@ def insert_match(user1,user2,percent_match):
    connection.close()
 
 
+def query_user(user_id):
+   # connect to database
+   connection = sqlite3.connect('setup.sql')
+   curr = connection.cursor()
 
-#THE BELOW IS A POTENTIAL PARTIAL IMPLEMENTATION OF THE GET_USER FUNCTION. FEEL FREE TO CHANGE COMPLETELY
-def query_user(user_id): # may need to change from 'user_id' to 'username'
-    # connect to database
-    #TODO: code for above
+   # create the query string containing user_id
+   query = ''' SELECT *
+      FROM USER
+      WHERE UserID = {};
+      ''' .format(user_id)
 
+   # sql query that returns a row from USER
+   curr.execute(query)
+   result = curr.fetchone()
 
-    # create the query string containing user_id
-    #TODO: I don't know if this query is correct so please
-    #       verify and adjust as needed
-    query = '''
-            select *
-            from USER
-            where Username = {};
-            '''.format(user_id)
-    
+   if result is not None:
+      # return a dictionary containing the user information (user_id,email,pasword)
+      return User(result[0], result[1], result[2]).return_dict()
+   else:
+      return {}
 
-    # sql query that returns a row from USER
-    #TODO: call the db using 'query' 
-    
-    
-    # return a dictionary containing the user information (username, password, potentially user_id if api team needs it)
-    return User(user_id,username,password).return_dict()
-
-    # THE BELOW IS AN ALTERNATE OF THE ABOVE LINE. Not sure if the above will work. RR
-    # user = User(user_id,username,password)
-    # return user.return_dict
-    pass
 
 def query_question(question_id):
-    pass
+   # connect to database
+   connection = sqlite3.connect('setup.sql')
+   curr = connection.cursor()
 
-def query_answer(question_id):
-    pass
+   # create the query string containing question_id
+   query = ''' SELECT *
+      FROM QUESTION
+      WHERE QuestionID = {};
+      ''' .format(question_id)
 
-def query_match(question_id):
-    pass
+   # sql query that returns a row from QUESTION
+   curr.execute(query)
+   result = curr.fetchone()
+
+   if result is not None:
+      # return a dictionary containing the question information (question_id,question)
+      return Question(result[0], result[1]).return_dict()
+   else:
+      return {}
+
+
+def query_answer(answer_id):
+   # connect to database
+   connection = sqlite3.connect('setup.sql')
+   curr = connection.cursor()
+
+   # create the query string containing answer_id
+   query = ''' SELECT *
+      FROM ANSWER 
+      WHERE AnswerID = {};
+      ''' .format(answer_id)
+
+   # sql query that returns a row from ANSWER
+   curr.execute(query)
+   result = curr.fetchone()
+
+   if result is not None:
+      # return a dictionary containing the question information (answer_id, user_id, question_id, answer)
+      return Answers(result[0], result[1], result[2], result[3]).return_dict()
+   else:
+      return {}
+
+
+def query_match(match_id):
+   # connect to database
+   connection = sqlite3.connect('setup.sql')
+   curr = connection.cursor()
+
+   # create the query string containing user_id
+   query = ''' SELECT *
+      FROM MATCHES
+      WHERE MatchID ={};
+      ''' .format(match_id)
+
+   # sql query that returns a row from Matches
+   curr.execute(query)
+   result = curr.fetchone()
+
+   if result is not None:
+      # return a dictionary containing the question information (match_id, user1_id, user2_id, percent_match)
+      return Matches(result[0], result[1], result[2], result[3]).return_dict()
+   else:
+      return {}

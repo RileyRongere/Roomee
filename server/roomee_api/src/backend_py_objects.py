@@ -85,8 +85,8 @@ class Matches:
 
         self.__dictionary = {
             'id' : self.__id,
-            'email' : self.__user1,
-            'password' : self.__user2,
+            'user1_id' : self.__user1,
+            'user2_id' : self.__user2,
             'percent_match' : self.__percent_match,
         }
 
@@ -126,8 +126,8 @@ class Answers:
 
         self.__dictionary = {
             'id' : self.__id,
-            'email' : self.__user_id,
-            'password' : self.__question_id,
+            'user_id' : self.__user_id,
+            'question_id' : self.__question_id,
             'answer' : self.__answer
         }
 
