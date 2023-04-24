@@ -1,47 +1,69 @@
-# Authors: Riley Rongere, Emma Gerdeman
-
+# Authors: Riley Rongere, Emma Gerdeman, Lane Affield
+# For use by the API team to query and insert objects to the DB
 from backend_py_objects import *
 import sqlite3
 
-# For use by the API team to query and insert objects to the DB
+class database:
+   def __init__(self):
+      pass
 
-def insert_user(email,password):
+class SQLite(database):
+   def __init__(self,db_file):
+      super().__init__() 
+      #connection = sqlite3.connect(db_file)
+      #curr = connection.cursor()
+      self.db_file = db_file
+
+class SQLite(database):
+   def __init__(self,db_file):
+      super().__init__() 
+      #connection = sqlite3.connect(db_file)
+      #curr = connection.cursor()
+      self.db_file = db_file
+
+# For use by the db team to convert info from the API to sql queries and inserts
+
+   def insert_user(self,email,password):
    # Sql insert containing email and password
-   connection = sqlite3.connect('setup.sql')
-   curr = connection.cursor()
-   curr.execute("INSERT INTO user (email, password) VALUES (?, ?)", (email, password))
-   connection.commit()
-   connection.close()
+      query = "INSERT INTO USER (Email, Password) VALUES (?, ?)"
+      with sqlite3.connect(self.db_file ) as conn: 
+         with conn.cursor as curr:
+            curr.execute(query , (email, password) )
+         conn.commit()
+      conn.close()
 
 
-def insert_question(question):
-   # Sql insert containing question
-   connection = sqlite3.connect('setup.sql')
-   curr = connection.cursor()
-   curr.execute("INSERT INTO question (question) VALUES (?)", (question))
-   connection.commit()
-   connection.close()
+   #NOT NECESSARY
+   def insert_question(question):
+      # Sql insert containing question
+      connection = sqlite3.connect('setup.sql')
+      curr = connection.cursor()
+      curr.execute("INSERT INTO QUESTION (question) VALUES (?)", (question))
+      connection.commit()
+      connection.close()
+   
+
+   def insert_answer(self,question_id,user_id,answer):
+      # Sql insert containing the username, user_id, and password
+      query = "INSERT INTO ANSWER (Question_ID, User_ID, Answer) VALUES (?, ?, ?)"
+      with sqlite3.connect(self.db_file ) as conn: 
+         with conn.cursor as curr:      
+            curr.execute(query , (question_id, user_id, answer))
+         conn.commit()
+      conn.close()
 
 
-def insert_answer(question_id,user_id,answer):
-   # Sql insert containing the username, user_id, and password
-   connection = sqlite3.connect('setup.sql')
-   curr = connection.cursor()
-   curr.execute("INSERT INTO answer (question_id, user_id, answer) VALUES (?, ?, ?)", (question_id, user_id, answer))
-   connection.commit()
-   connection.close()
+   def insert_match(self, user1,user2,percent_match):
+      # Sql insert containing user1, user2, percent_match
+      with sqlite3.connect(self.db_file ) as conn: 
+         query = "INSERT INTO MATCHES (User1, User2, Percent_Match) VALUES (?, ?, ?)"
+         with conn.cursor as curr:
+            curr.execute(query, (user1, user2, percent_match))
+         conn.commit()
+      conn.close()
 
 
-def insert_match(user1,user2,percent_match):
-   # Sql insert containing user1, user2, percent_match
-   connection = sqlite3.connect('setup.sql')
-   curr = connection.cursor()
-   curr.execute("INSERT INTO matches (user1, user2, percent_match) VALUES (?, ?, ?)", (user1, user2, percent_match))
-   connection.commit()
-   connection.close()
-
-
-def query_user(user_id):
+def query_user(user_id): # cahnge to username
    # connect to database
    connection = sqlite3.connect('setup.sql')
    curr = connection.cursor()
@@ -85,7 +107,7 @@ def query_question(question_id):
       return {}
 
 
-def query_answer(answer_id):
+def query_answer(answer_id): #change to user id
    # connect to database
    connection = sqlite3.connect('setup.sql')
    curr = connection.cursor()
@@ -107,7 +129,7 @@ def query_answer(answer_id):
       return {}
 
 
-def query_match(match_id):
+def query_match(match_id): #change to user id
    # connect to database
    connection = sqlite3.connect('setup.sql')
    curr = connection.cursor()
