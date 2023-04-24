@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import os
-import insert_query_DB
+from insert_query_DB import insert_user
 
 app = Flask(__name__)
 
@@ -109,8 +109,7 @@ def user_creation(username):
 @app.route("/test", methods=["POST"])
 def test_user_create():
     user_details_object = request.get_json()
-    print(user_details_object)
-    #insert_user(user_details_object[])
+    insert_user(user_details_object['email'], user_details_object['password'])
 
 
-    return jsonify("Made user.")
+    return jsonify(user_details_object), 201
