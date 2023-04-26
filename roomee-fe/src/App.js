@@ -8,13 +8,13 @@ import Password from './Pages/password_page'
 
 export function App() {
   return (
-  <>
-    <nav>
-      <ul>
-        <li><Link to="/quiz">Edit Answers</Link></li>
-        <li><Link to="/username">Logout</Link></li>
-      </ul>
-    </nav>
+    <>
+      <nav>
+        <ul>
+          <li><Link to="/quiz">Edit Answers</Link></li>
+          <li><Link to="/username">Logout</Link></li>
+        </ul>
+      </nav>
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -25,6 +25,6 @@ export function App() {
       </Routes>
     </>
   );
-}
+};
 
 export default App;
