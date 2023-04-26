@@ -95,33 +95,6 @@ def get_questions():
     return jsonify({"question_ids": question_ids})
 
 
-# User methods endpoint, passes username as identifier
-# Still creating handlers dependent on the state of the dictionary object from FE
-@app.route("/user/<username>", methods=["GET", "POST"])
-def user_creation(username):
-    if request.method == "GET":
-        # access DB to find user
-
-        # if the user exists
-        if username:
-            user = {}
-            # json object creation code here
-            return jsonify(username)
-        # else (username doesn't exist)
-        else:
-            return jsonify({"error": "User not found"}), 404
-
-    elif request.method == "POST":
-        # retrieve dictionary
-        username_request_object = request.get_json()
-        # process dictionary from POST to figure out the task to perform on the given data
-        # if completing a user's password setup (handler)
-        Task = "user_creation"
-        # if completing a user's answers (handler)
-        Task = "answer_creation"
-
-        return jsonify({"message": f"{Task} Complete"})
-
 @app.route("/user/<username>", methods=["PUT"])
 def user_creation(username):
     if request.method == "PUT":
