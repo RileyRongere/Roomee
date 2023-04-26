@@ -6,10 +6,10 @@ const checkUser = async () => {
   return await callApi('users');
 };
 
-
 // we need to figure out how to hold if the user is true or not 
 // then pass that to the next page and change the contents bassed on that 
 
+// also pass the username on for search 
 
 export function App(props) {
   return (
