@@ -122,6 +122,23 @@ def user_creation(username):
 
         return jsonify({"message": f"{Task} Complete"})
 
+@app.route("/user/<username>", methods=["PUT"])
+def user_creation(username):
+    if request.method == "PUT":
+        user = get_user(username)
+    
+        if user == {}:
+            #user doesn't exist
+            #create entry for user
+            insert_user(username,"")
+            
+            return jsonify({"message" : "User created."}), 200
+        
+        else:
+            #user already exists
+            return jsonify({"message" : "User exists"}), 204
+        
+        
 
 # DB method implementation      in-progress
 @app.route("/test", methods=["POST"])
