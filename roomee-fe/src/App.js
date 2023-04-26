@@ -1,24 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Home from './Pages/Home'
+import Dummy from './Pages/Dummy'
+import Quiz from './Pages/Quiz'
+import Username from './Pages/username_page'
+import Password from './Pages/password_page'
 
-function App() {
+export function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+    <nav>
+      <ul>
+        <li><Link to="/quiz">Edit Answers</Link></li>
+        <li><Link to="/username">Logout</Link></li>
+      </ul>
+    </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dummy" element={<Dummy />} />
+        <Route path="/quiz" element={<Quiz />} />
+        <Route path="/username" element={<Username />} />
+        <Route path="/password" element={<Password />} />
+      </Routes>
+    </>
   );
 }
 
