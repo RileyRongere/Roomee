@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 function Quiz() {
 
-    export const callApi = async (endpoint, method = 'GET', body) => {
+    const callApi = async (endpoint, method = 'GET', body) => {
       const url = `http://localhost:5000/${endpoint}`; // Replace with your Flask API URL
       const options = {
         method,
@@ -28,21 +28,22 @@ function Quiz() {
       return data;
     };
 
-    export const getQuestions = async () => {
+    const getQuestions = async () => {
       return await callApi('questions'); // Replace 'questions' with your GET endpoint
     };
 
-    export const submitAnswers = async (questionIds, userId, answers) => {
+    const submitAnswers = async (questionIds, userId, answers) => {
       const payload = {
         user_id: userId,
         question_id: questionIds,
         answers: answers,
       };
 
-      return await callApi('submit-answers', 'POST', payload); // Replace 'submit-answers' with your POST endpoint
+      console.log(payload)
+      //return await callApi('submit-answers', 'POST', payload); // Replace 'submit-answers' with your POST endpoint
     };
 
-    export const isCompleted = async () => {
+    const isCompleted = async () => {
       return await callApi('is-completed'); // Replace 'is-completed' with your appropriate endpoint
     };
 
