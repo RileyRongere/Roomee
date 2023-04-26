@@ -130,3 +130,23 @@ def test_user_create():
     insert_user(user_details_object["email"], user_details_object["password"])
 
     return jsonify(user_details_object), 201
+
+
+# register endpoint to take in and save username and password
+@app.route("/register", methods=["POST"])
+def register_user():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    # sanitize data
+    username = username.strip()
+    password = password.strip()
+
+    insert_user(username, password)
+
+    return jsonify({"User created"}), 200
+
+
+
+
