@@ -104,7 +104,12 @@ class SQLite(database):
             result = curr.fetchall()
             if result is not None:
                # return a dictionary containing the question information (answer_id, user_id, question_id, answer)
-               return Answers(result[0], result[1], result[2], result[3]).return_dict()
+                  return_list = []
+     # return a dictionary containing the question information (match_id, user1_id, user2_id, percent_match)
+                  for i in range(len(result[0])):
+                     new_element = Answers(result[0], result[1], result[2], result[3])[i]
+                     return_list.append(new_element.return_dict())
+                  return return_list
             else:
                return {}
 
