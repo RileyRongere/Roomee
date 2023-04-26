@@ -122,6 +122,23 @@ def user_creation(username):
 
         return jsonify({"message": f"{Task} Complete"})
 
+@app.route("/user/<username>", methods=["PUT"])
+def user_creation(username):
+    if request.method == "PUT":
+        user = get_user(username)
+    
+        if user == {}:
+            #user doesn't exist
+            #create entry for user
+            insert_user(username,"")
+            
+            return jsonify({"message" : "User created."}), 200
+        
+        else:
+            #user already exists
+            return jsonify({"message" : "User exists"}), 204
+        
+        
 
 # DB method implementation      in-progress
 @app.route("/test", methods=["POST"])
@@ -130,6 +147,29 @@ def test_user_create():
     insert_user(user_details_object["email"], user_details_object["password"])
 
     return jsonify(user_details_object), 201
+
+
+
+
+#Login endpint:
+# I am assuming to data will look something like this:
+#users = {'username': 'password'}
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    # Is this what you mean by sanitize? I am removing any leading/trailing whitespace
+    username = username.strip()
+    password = password.strip()
+
+    if username in users and users[username] == password:
+        return jsonify({'message': 'Login successful.'}), 200
+    else:
+        return jsonify({'message': 'Invalid username or password.'}), 403
+
 
 
 # register endpoint to take in and save username and password
