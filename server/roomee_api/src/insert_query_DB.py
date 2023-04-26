@@ -57,12 +57,12 @@ class SQLite(database):
 
 
 
-   def query_user(self , Email): # cahnge to username
+   def query_user_by_id(self , User_id): # cahnge to username
       # connect to database
       with sqlite3.connect(self.db_file) as conn:   # create the query string containing user_id
-         query = "SELECT * FROM USER WHERE Email = (?);"
+         query = "SELECT * FROM USER WHERE UserID = (?);"
          with conn.cursor() as curr:
-            curr.execute(query, (Email))
+            curr.execute(query, (User_id))
             result = curr.fetchone()
             if result is not None:
                # return a dictionary containing the user information (user_id,email,pasword)
@@ -70,7 +70,19 @@ class SQLite(database):
             else:
                   return {}
  
-
+   def query_user_by_email(self , email): # cahnge to username
+      # connect to database
+      with sqlite3.connect(self.db_file) as conn:   # create the query string containing user_id
+         query = "SELECT * FROM USER WHERE Email = (?);"
+         with conn.cursor() as curr:
+            curr.execute(query, (email))
+            result = curr.fetchone()
+            if result is not None:
+               # return a dictionary containing the user information (user_id,email,pasword)
+                  return User(result[0], result[1], result[2]).return_dict()
+            else:
+                  return {}
+ 
 
 
    def query_question(self,question_id):
