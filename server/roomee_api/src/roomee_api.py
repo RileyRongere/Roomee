@@ -22,6 +22,15 @@ def get_answers(id):
     return answers
 
 
+def is_valid(dirty_string):
+    if not type(dirty_string) is str or " " in dirty_string:
+        return False
+    
+    else:
+        return True
+
+
+
 # Method to return every user to the endpoint /api/users
 
 # This probably doesn't need an endpoint associated with it. I don't think it will be called from outside the API -Kieran
@@ -135,13 +144,17 @@ def login():
     password = data.get('password')
 
     # Is this what you mean by sanitize? I am removing any leading/trailing whitespace
-    username = username.strip()
-    password = password.strip()
+    if is_valid(username) and is_valid(password):
 
-    if username in users and users[username] == password:
-        return jsonify({'message': 'Login successful.'}), 200
+        user = get_user(username)
+
+        if not user == {} and user['password'] == password:
+            return jsonify({'message': 'Login successful.'}), 200
+        else:
+            return jsonify({'message': 'Invalid username or password.'}), 403
+    
     else:
-        return jsonify({'message': 'Invalid username or password.'}), 403
+        return jsonify({'message': 'Invalid username or password format'}), 400
 
 
 
@@ -153,12 +166,16 @@ def register_user():
     password = data.get('password')
 
     # sanitize data
-    username = username.strip()
-    password = password.strip()
+    if is_valid(username) and is_valid(password):
 
-    insert_user(username, password)
 
-    return jsonify({"User created"}), 200
+        insert_user(username, password)
+
+        return jsonify({"User created"}), 200
+    
+    else:
+        return jsonify({'message': 'Invalid username or password format'}), 400
+
 
 
 
