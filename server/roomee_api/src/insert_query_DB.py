@@ -2,6 +2,20 @@
 # For use by the API team to query and insert objects to the DB
 from backend_py_objects import *
 import sqlite3
+import mysql.connector
+
+def insert_user_version_2(username, passw, firstname, lastname):
+    query = ("INSERT INTO USER "
+               "(UserName, Passcode, FirstName, LastName) "
+               "VALUES (%s, %s, %s, %s)"
+             )
+    with mysql.connector.connect(user='MYSQL_USER', password = 'MYSQL_PASSWORD', 
+                                 host = 'localhost', port = '9906', database='roomee') as conn:
+        with conn.cursor() as curr:
+            curr.execute(query, (username, passw, firstname, lastname))
+        conn.commit()
+    conn.close()
+    
 
 class database:
    def __init__(self):
@@ -14,18 +28,11 @@ class SQLite(database):
       #curr = connection.cursor()
       self.db_file = db_file
 
-class SQLite(database):
-   def __init__(self,db_file):
-      super().__init__() 
-      #connection = sqlite3.connect(db_file)
-      #curr = connection.cursor()
-      self.db_file = db_file
-
 # For use by the db team to convert info from the API to sql queries and inserts
 
-   def insert_user(self,email,password):
+   def insert_user(self, email, password):
    # Sql insert containing email and password
-      query = "INSERT INTO USER (Email, Password) VALUES (?, ?)"
+      query = "INSERT INTO USER (Email, Passcode) VALUES (?, ?)"
       with sqlite3.connect(self.db_file ) as conn: 
          with conn.cursor as curr:
             curr.execute(query , (email, password) )
