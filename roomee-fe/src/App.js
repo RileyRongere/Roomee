@@ -3,14 +3,25 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home'
 import Dummy from './Pages/Dummy'
 import Quiz from './Pages/Quiz'
+import Username from './Pages/username_page'
+import Password from './Pages/password_page'
 
-const App = () => {
+export function App() {
   return (
     <>
+      <nav>
+        <ul>
+          <li><Link to="/quiz">Edit Answers</Link></li>
+          <li><Link to="/username">Logout</Link></li>
+        </ul>
+      </nav>
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dummy" element={<Dummy />} />
         <Route path="/quiz" element={<Quiz />} />
+        <Route path="/username" element={<Username />} />
+        <Route path="/password" element={<Password />} />
       </Routes>
     </>
   );
