@@ -24,6 +24,7 @@ def get_answers(id):
 
 # Method to return every user to the endpoint /api/users
 
+
 # This probably doesn't need an endpoint associated with it. I don't think it will be called from outside the API -Kieran
 @app.route("/users", methods=["GET"])
 def get_users():
@@ -34,6 +35,7 @@ def get_users():
 
 
 # Method to return a boolean to the endpoint /api/users if user_id exists
+
 
 # Same as above. This probably won't be called from the outside and so doesn't really need an endpoint -Kieran
 @app.route("/users", methods=["POST"])
@@ -75,6 +77,7 @@ def get_answers(username):
 
 
 # Check if user data is complete
+
 
 # Another that might not need an endpoint -Kieran
 @app.route("/user_is_complete/<username>", methods=["GET"])
@@ -130,3 +133,14 @@ def test_user_create():
     insert_user(user_details_object["email"], user_details_object["password"])
 
     return jsonify(user_details_object), 201
+
+
+# Creating Match Endpoint
+# Returns a list of the users matches
+@app.route("/match/<username>", methods=["POST"])
+def get_matches():
+    # Not sure where this list is coming from yet, need help filling this in
+    # I am guessing it is in some type of dictionary that we would need to just pull out of?
+    list_of_matches = []
+
+    return jsonify({"matches": list_of_matches})
