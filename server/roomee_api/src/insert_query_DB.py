@@ -1,4 +1,4 @@
-# Authors: Riley Rongere, Emma Gerdeman, Lane Affield
+# Authors: Riley Rongere, Emma Gerdeman, Lane Affield, Nick Wharff
 # For use by the API team to query and insert objects to the DB
 from backend_py_objects import *
 import sqlite3
@@ -57,12 +57,12 @@ class SQLite(database):
 
 
 
-   def query_user(self , user_id): # cahnge to username
+   def query_user(self , Email): # cahnge to username
       # connect to database
       with sqlite3.connect(self.db_file) as conn:   # create the query string containing user_id
-         query = "SELECT * FROM USER WHERE UserID = (?);"
+         query = "SELECT * FROM USER WHERE Email = (?);"
          with conn.cursor() as curr:
-            curr.execute(query, (user_id))
+            curr.execute(query, (Email))
             result = curr.fetchone()
             if result is not None:
                # return a dictionary containing the user information (user_id,email,pasword)
@@ -96,7 +96,7 @@ class SQLite(database):
    def query_answer(self, user_id): #change to user id
       # connect to database
       with sqlite3.connect( self.db_file) as conn:
-         query = 'SELECT * FROM ANSWER WHERE User_ID = (?);'
+         query = 'SELECT * FROM ANSWER WHERE UserID = (?);'
          with conn.cursor() as curr:
             # create the query string containing answer_id
             # sql query that returns a row from ANSWER
