@@ -2,18 +2,25 @@ import React from 'react'
 import { useState } from 'react'
 //import ReactSlider from 'react-slider'
 
-export default function QuestionTile({question}) {
-    const [sliderValue, setSliderValue] = useState(3)
-
+export default function QuestionTile({question, questionId, answers, setAnswers}) {
+    const [valueState, setValuestate] = useState(answers[questionId])
+    
+    
     function handleChange(event) {
-        setSliderValue(event.target.value)
-        console.log(event.target.value)
+        //Set the value of the current slider to the target value of the 
+        //update
+        setValuestate(event.target.value)
+        
+        //Update the answers array in Quz.jsx to hold the updated value
+        let answersCopy = answers
+        answersCopy[questionId] = Number(event.target.value)
+        setAnswers(answersCopy)
     }
 
     return(
         <div className = "slide">
             <p>{question}</p>
-            <input type = "range" min = "1" max = "5" value = {sliderValue} onChange={handleChange}></input>
+            <input type = "range" min = "1" max = "5" value = {valueState} onChange={handleChange}></input>
         </div>
     )
 }
