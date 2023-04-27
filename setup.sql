@@ -2,12 +2,10 @@ DROP TABLE IF EXISTS USER;
 
 CREATE TABLE IF NOT EXISTS USER (
    UserID      int(11)  NOT NULL AUTO_INCREMENT                    ,
-   UserName    char(12) NOT NULL                                   ,
+   UserName    char(30) NOT NULL                                   ,
    Passcode    char(30) NOT NULL                                   ,
    FirstName   char(25) NOT NULL                                   ,
    LastName    char(25) NOT NULL                                   ,
-   Gender      int      NOT NULL                                   ,
-               CONSTRAINT CHECK (GENDER IN (0,1))                  ,
                CONSTRAINT PRIMARY KEY (UserID)                                 
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
