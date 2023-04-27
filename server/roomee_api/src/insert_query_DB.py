@@ -75,6 +75,7 @@ class SQLite(database):
         conn.close()
 
 
+# takes in a string email and returns a corresponding dict containing User information
 def query_user(email):
     # connect to database
     with mysql.connector.connect(
@@ -96,8 +97,33 @@ def query_user(email):
                 ).return_dict()
             else:
                 return {}
+             
+
+# takes in an int user_id and returns a corresponding dict containing User information
+def query_user_by_id(user_id):
+    # connect to database
+    with mysql.connector.connect(
+        user="MYSQL_USER",
+        password="MYSQL_PASSWORD",
+        host="localhost",
+        port="9906",
+        database="roomee",
+    ) as conn:
+        with conn.cursor() as curr:
+            # sql query that returns a row from USER
+            query = "Select * " "FROM USER " "WHERE UserID = (%s)"
+            curr.execute(query, (user_id,))
+            result = curr.fetchone()
+            conn.close()
+            if result is not None:
+                return User(
+                    result[0], result[1], result[2], result[3], result[4]
+                ).return_dict()
+            else:
+                return {}
 
 
+# takes in an int question_id and returns a corresponding dict containing Question information
 def query_question(question_id):
     # connect to database
     with mysql.connector.connect(
@@ -119,6 +145,7 @@ def query_question(question_id):
                 return {}
 
 
+# takes in an int user_id and returns a corresponding list of Answer dicts
 def query_answer(user_id):
     # connect to database
     with mysql.connector.connect(
@@ -148,7 +175,8 @@ def query_answer(user_id):
                 return {}
 
 
-def query_match(match_id):
+# takes in an int user_id and returns a corresponding list of Match dicts
+def query_matches(user_id):
     # connect to database
     with mysql.connector.connect(
         user="MYSQL_USER",
@@ -158,7 +186,7 @@ def query_match(match_id):
         database="roomee",
     ) as conn:
         with conn.cursor() as curr:
-            query = "Select * " "FROM ANSWER " "WHERE User_1 = (%s)"
+            query = "Select * " "FROM MATCHES " "WHERE User_1 = (%s)"
             curr.execute(query, (user_id,))
             result = curr.fetchall()
             conn.close()
