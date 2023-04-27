@@ -1,5 +1,4 @@
-#from insert_query_DB import *
-from other_insert import *
+from insert_query_DB import *
 
 def main():
     user_input = "R"
@@ -11,9 +10,9 @@ def main():
             passw = input("password\n").lower()
             first = input("firstname\n").lower()
             last = input("lastname\n").lower()
-            # gender = input("gender\n").lower()
+            gender = input("gender\n").lower()
             
-            insert_user(ema, passw, first, last)
+            insert_user_version_2(ema, passw, first, last, gender)
             #connection.insert_user(ema, passw)
         
         

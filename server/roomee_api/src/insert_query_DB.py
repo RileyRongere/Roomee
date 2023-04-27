@@ -4,15 +4,15 @@ from backend_py_objects import *
 import sqlite3
 import mysql.connector
 
-def insert_user_version_2(username, passw, firstname, lastname):
+def insert_user_version_2(username, passw, firstname, lastname, gender):
     query = ("INSERT INTO USER "
-               "(UserName, Passcode, FirstName, LastName) "
-               "VALUES (%s, %s, %s, %s)"
+               "(UserName, Passcode, FirstName, LastName, Gender) "
+               "VALUES (%s, %s, %s, %s, %s)"
              )
     with mysql.connector.connect(user='MYSQL_USER', password = 'MYSQL_PASSWORD', 
                                  host = 'localhost', port = '9906', database='roomee') as conn:
         with conn.cursor() as curr:
-            curr.execute(query, (username, passw, firstname, lastname))
+            curr.execute(query, (username, passw, firstname, lastname, gender))
         conn.commit()
     conn.close()
     
