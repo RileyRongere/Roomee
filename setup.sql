@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS ANSWER (
 
 CREATE TABLE IF NOT EXISTS MATCHES (
    MatchID      int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY          ,
-   User_1       int(11) NOT NULL REFERENCES USER(UserID)             ,
-   User_2       int(11) NOT NULL REFERENCES USER(UserID)             ,
+   UserID_1       int(11) NOT NULL REFERENCES USER(UserID)             ,
+   UserID_2       int(11) NOT NULL REFERENCES USER(UserID)             ,
    PercentMatch float(2) NOT NULL                                      
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
