@@ -26,10 +26,9 @@ def get_answers(id):
 def is_valid(dirty_string):
     if not type(dirty_string) is str or " " in dirty_string:
         return False
-    
+
     else:
         return True
-
 
 
 # Method to return a boolean to the endpoint /api/users if user_id exists
@@ -64,68 +63,61 @@ def get_questions():
     question_ids = []
     return jsonify({"question_ids": question_ids})
 
-#Method to check if a user exists and create them if they don't
+
+# Method to check if a user exists and create them if they don't
 @app.route("/user/<username>", methods=["PUT"])
 def user_creation(username):
     if request.method == "PUT":
         user = get_user(username)
-    
+
         if user == {}:
-            #user doesn't exist
-            #create entry for user
-            insert_user(username,"")
-            
-            return jsonify({"message" : "User created."}), 200
-        
+            # user doesn't exist
+            # create entry for user
+            insert_user(username, "")
+
+            return jsonify({"message": "User created."}), 200
+
         else:
-            #user already exists
-            return jsonify({"message" : "User exists"}), 204
+            # user already exists
+            return jsonify({"message": "User exists"}), 204
 
 
-#Login endpint:
+# Login endpint:
 # I am assuming to data will look something like this:
-#users = {'username': 'password'}
+# users = {'username': 'password'}
 
-@app.route('/login', methods=['POST'])
+
+@app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
+    username = data.get("username")
+    password = data.get("password")
 
     # Is this what you mean by sanitize? I am removing any leading/trailing whitespace
     if is_valid(username) and is_valid(password):
-
         user = get_user(username)
 
-        if not user == {} and user['password'] == password:
-            return jsonify({'message': 'Login successful.'}), 200
+        if not user == {} and user["password"] == password:
+            return jsonify({"message": "Login successful."}), 200
         else:
-            return jsonify({'message': 'Invalid username or password.'}), 403
-    
-    else:
-        return jsonify({'message': 'Invalid username or password format'}), 400
+            return jsonify({"message": "Invalid username or password."}), 403
 
+    else:
+        return jsonify({"message": "Invalid username or password format"}), 400
 
 
 # register endpoint to take in and save username and password
 @app.route("/register", methods=["POST"])
 def register_user():
     data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
+    username = data.get("username")
+    password = data.get("password")
 
     # sanitize data
     if is_valid(username) and is_valid(password):
-
-
         insert_user(username, password)
 
         return jsonify({"User created"}), 200
-    
+
     else:
-        return jsonify({'message': 'Invalid username or password format'}), 400
-
-
-
-
-
+        return jsonify({"message": "Invalid username or password format"}), 400
