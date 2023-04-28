@@ -41,7 +41,7 @@ def main():
             print(functions.query_user_by_email(Email))
         
         # query_user_by_email function
-        elif user_input == "QUE":
+        elif user_input == "QUI":
             u_id = input("ID\n").lower()
             print(functions.query_user_by_id(u_id))
 
@@ -56,7 +56,7 @@ def main():
             print(functions.query_answer(u_id))
         
         # query_matches function
-        elif user_input == "SM":
+        elif user_input == "QM":
             u_id = input("user_id\n")
             print(functions.query_matches(u_id))
 

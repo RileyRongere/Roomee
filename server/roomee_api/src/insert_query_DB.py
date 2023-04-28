@@ -121,7 +121,7 @@ class mySQL(mySQLdatabase):
                 conn.close()
                 if result is not None:
                     return User(
-                        result[0], result[1], result[2], result[3], result[4]
+                        result[0], result[1], result[2]
                     ).return_dict()
                 else:
                     return {}
@@ -149,7 +149,7 @@ class mySQL(mySQLdatabase):
                 conn.close()
                 if result is not None:
                     return User(
-                        result[0], result[1], result[2], result[3], result[4]
+                        result[0], result[1], result[2]
                     ).return_dict()
                 else:
                     return {}
