@@ -25,11 +25,11 @@ class mySQL(mySQLdatabase):
          "VALUES (%s, %s)"
       )
       with mysql.connector.connect(
-         self.user,
-         self.password,
-         self.host,
-         self.port,
-         self.database,
+         user = self.user,
+         password = self.password,
+         host = self.host,
+         port = self.port,
+         database = self.database,
       ) as conn:
          with conn.cursor() as curr:
                curr.execute(query, (Email, Passcode))
@@ -45,11 +45,11 @@ class mySQL(mySQLdatabase):
          "VALUES (%s)"
       )
       with mysql.connector.connect(
-         self.user,
-         self.password,
-         self.host,
-         self.port,
-         self.database,
+         user = self.user,
+         password = self.password,
+         host = self.host,
+         port = self.port,
+         database = self.database,
       ) as conn:
          with conn.cursor() as curr:
                curr.execute(query, (Question))
@@ -65,11 +65,11 @@ class mySQL(mySQLdatabase):
          "VALUES (%s, %s, %s)"
       )
       with mysql.connector.connect(
-         self.user,
-         self.password,
-         self.host,
-         self.port,
-         self.database,
+         user = self.user,
+         password = self.password,
+         host = self.host,
+         port = self.port,
+         database = self.database,
       ) as conn:
          with conn.cursor() as curr:
                curr.execute(query, (QuestionID, UserID, Answer))
@@ -85,11 +85,11 @@ class mySQL(mySQLdatabase):
          "VALUES (%s, %s, %s)"
       )
       with mysql.connector.connect(
-         self.user,
-         self.password,
-         self.host,
-         self.port,
-         self.database,
+         user = self.user,
+         password = self.password,
+         host = self.host,
+         port = self.port,
+         database = self.database,
       ) as conn:
          with conn.cursor() as curr:
                curr.execute(query, (UserID_1, UserID_2, PercentMatch))
