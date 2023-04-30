@@ -6,10 +6,17 @@ const checkUser = async () => {
   return await callApi('users');
 };
 
+
+
 // we need to figure out how to hold if the user is true or not 
 // then pass that to the next page and change the contents bassed on that 
 
 // also pass the username on for search 
+
+function handleClickSignIn() {
+  console.log("come handle click fun");
+  this.props.history.push({ pathname: "/password_page", state: { username: "Steven" } });
+}
 
 export function App(props) {
   return (
@@ -27,4 +34,4 @@ export function App(props) {
 }
 
 // Log to console
-console.log('Username Entered')
+// console.log('Username Entered')

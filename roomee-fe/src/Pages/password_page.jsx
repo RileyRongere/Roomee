@@ -4,14 +4,19 @@ import { Link } from "react-router-dom";
 
 function searchPassword() {
     fetch('api_name')
-    if
+    // if
 
-    else
+    // else
 
     // Conditional statment that sends password and either calls next page or throws an error message 
 }
 
 // we need to change heading to a conditional bassed on if the username is found or not 
+
+function componentDidMount() {
+    console.log(this.props.location.state.username);
+}
+
 const Password = () => {
     return (
         <div className="Password">
