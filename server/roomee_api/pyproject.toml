@@ -10,7 +10,11 @@ packages = []
 python = "^3.9"
 flask = "^2.2.3"
 marshmallow = "^3.19.0"
+<<<<<<< HEAD
 black = "^23.3.0"
+=======
+mysql-connector-python = "^8.0.33"
+>>>>>>> origin/DB_Team
 
 
 [tool.poetry.group.dev.dependencies]
