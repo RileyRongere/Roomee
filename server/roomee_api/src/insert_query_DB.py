@@ -151,6 +151,35 @@ class mySQL(mySQLdatabase):
                     return Question(result[0], result[1]).return_dict()
                 else:
                     return {}
+                
+    def query_all_questions(self):
+        # connect to database
+        with mysql.connector.connect(
+            user = self.user,
+            password = self.password,
+            host = self.host,
+            port = self.port,
+            database = self.database,
+        ) as conn:
+            with conn.cursor() as curr:
+                query = (
+                    "Select * "
+                    "FROM QUESTION"
+                )
+                curr.execute(query)
+                result = curr.fetchall()
+                conn.close()
+                if result is not None:
+                    # build a list of Question dictionaries to return
+                    return_list = []
+                    for i in range(len(result)):
+                        # put a dictionary containing answer information (QuestionID, Question) in the list
+                        curr_question = result[i]
+                        new_element = Question(
+                            curr_question[0], curr_question[1]
+                        )
+                        return_list.append(new_element.return_dict())
+                    return return_list
 
     # takes in an int UserID and returns a corresponding list of Answer dicts
     def query_answer(self, UserID):

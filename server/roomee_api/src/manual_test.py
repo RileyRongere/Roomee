@@ -49,6 +49,10 @@ def main():
             q_id = input("question id\n")
             print(functions.query_question(q_id))
 
+        # query_all_questions function
+        elif user_input == "QAQ":
+            print(functions.query_all_questions())
+
         # query_answer function
         elif user_input == "QA":
             u_id = input("user_id\n")
