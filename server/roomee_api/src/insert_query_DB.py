@@ -38,7 +38,6 @@ class mySQL(mySQLdatabase):
             conn.commit()
         conn.close()
 
-    # TODO: CURRENTLY DOES NOT WORK!
     def insert_question(self, Question):
         # Sql insert containing Question
         query = "INSERT INTO QUESTION " "(Question) " "VALUES (%s)"
@@ -50,7 +49,7 @@ class mySQL(mySQLdatabase):
             database=self.database,
         ) as conn:
             with conn.cursor() as curr:
-                curr.execute(query, (Question))
+                curr.execute(query, (Question,))
             conn.commit()
         conn.close()
 
