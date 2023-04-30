@@ -56,7 +56,7 @@ def get_answers():
         for i in question_ids:
             db_conn.insert_answer(i, user_id, answers[i])
 
-        return jsonify("Answers successfully posted"), 201
+        return jsonify({"message": "Answers successfully posted"}), 201
 
 
 # Method to return all questions to an endpoint /api/questions
@@ -101,7 +101,7 @@ def login():
         user = get_user(email)
 
         if not user == {} and user["password"] == password:
-            return jsonify({"message": "Login successful."}), 200
+            return jsonify({"user" : user, "message": "Login successful."}), 200
         else:
             return jsonify({"message": "Invalid email or password."}), 403
 
@@ -121,7 +121,9 @@ def register_user():
     if is_valid(email) and is_valid(password):
         db_conn.insert_user(email, password)
 
-        return jsonify({"User created"}), 200
+        user = get_user(email)
+
+        return jsonify({"user": user, "message": "User created"}), 200
 
     else:
         return jsonify({"message": "Invalid email or password format"}), 400
