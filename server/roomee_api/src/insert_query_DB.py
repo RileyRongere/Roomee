@@ -37,7 +37,7 @@ class mySQL(mySQLdatabase):
             conn.commit()
         conn.close()
 
-    #TODO: CURRENTLY DOES NOT WORK!
+
     def insert_question(self, Question):
     # Sql insert containing Question
         query = (
