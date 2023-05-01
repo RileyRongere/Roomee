@@ -1,6 +1,6 @@
 # Authors: Riley Rongere, Emma Gerdeman
 
-from backend_py_objects import *
+from src.backend_py_objects import *
 import sqlite3
 
 # For use by the API team to query and insert objects to the DB
