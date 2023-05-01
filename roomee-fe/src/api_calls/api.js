@@ -29,7 +29,9 @@ export const submitAnswers = async (questionIds, userId, answers) => {
     answers: answers,
   };
 
-  return await callApi('submit-answers', 'POST', payload); // Replace 'submit-answers' with your POST endpoint
+  //console.log(payload)
+  console.log("Answers Submitted!")
+  //return await callApi('submit-answers', 'POST', payload); // Replace 'submit-answers' with your POST endpoint
 };
 
 export const isCompleted = async () => {
