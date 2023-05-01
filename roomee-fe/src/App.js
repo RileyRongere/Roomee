@@ -22,6 +22,7 @@ export function App() {
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/" element={<Username />} />
         <Route path="/password" element={<Password />} />
+        <Route path="/match" element={<Match />} />
       </Routes>
     </>
   );
