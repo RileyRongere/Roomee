@@ -17,10 +17,10 @@ export function App() {
       </nav>
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/dummy" element={<Dummy />} />
         <Route path="/quiz" element={<Quiz />} />
-        <Route path="/username" element={<Username />} />
+        <Route path="/" element={<Username />} />
         <Route path="/password" element={<Password />} />
       </Routes>
     </>
