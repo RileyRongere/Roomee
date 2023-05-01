@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import os
-from src.insert_query_DB import insert_user, query_user, query_answer
+from src.insert_query_DB import insert_user, query_user, query_answer, insert_answer
 
 app = Flask(__name__)
 
@@ -31,30 +31,38 @@ def is_valid(dirty_string):
         return True
 
 
-# Method to return a boolean to the endpoint /api/users if user_id exists
-
-
-@app.route("/answers/<username>", methods=["GET", "POST"])
-# I suspect this will need to be altered to take a username parameter so we know whose answers we're checking - Kieran
-def get_answers(username):
+@app.route("/answers", methods=["GET", "POST"])
+# I suspect this will need to be altered to take a ID parameter so we know whose answers we're checking - Kieran
+def get_answers():
     if request.method == "GET":
-        # Mock list of user answers
-        answer_ids = []
 
-        return jsonify({"answer_ids": answer_ids})
+        data = request.get_json()
+        user_id = data.get("user_id")
+
+        ##
+        # answers = query_answer(user_id) #call currently doesn't work for this
+        answers = {"q": "a"}  # dummy
+        ##
+
+        return jsonify(answers)
 
     if request.method == "POST":
         # Fetch answer_id to check
         data = request.get_json()
-        answer_id = data["answer_id"]
+        user_id = data.get("user_id")
+        question_id = data.get("question_id")
+        answer = data.get("answer")
 
-        # Mock list of answer ids
-        answer_ids = [27, 8, 90]
+        ##
+        result = query_answer(
+            user_id
+        )  # will won't to call it with the user_id, which query_answer does not currently have
+        ##
 
-        if answer_id in answer_ids:
-            return jsonify({"answer_exists": True})
+        if result == {}:
+            insert_answer(question_id, user_id, answer)
         else:
-            return jsonify({"answer_exists": False})
+            return jsonify(result)
 
 
 # Method to return all questions to an endpoint /api/questions
