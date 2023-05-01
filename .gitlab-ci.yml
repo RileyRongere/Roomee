@@ -1,0 +1,48 @@
+stages:
+  - Static Analysis
+  - Test
+
+variables:
+  IN_CI: "true"
+
+black:
+  image: "python:3.9"
+  stage: Static Analysis
+  needs: []
+  before_script:
+    - cd server/roomee_api
+    - pip install poetry
+    - poetry install --no-root
+  script:
+    - poetry run black --check .
+
+pytest:
+  image: "python:3.9"
+  stage: Test
+  needs: []
+  before_script:
+    - cd server/roomee_api
+    - pip install poetry
+    - poetry install --no-root
+  script:
+    - poetry run pytest --cov=src .
+
+prettier:
+  image: "node:alpine"
+  stage: Static Analysis
+  needs: []
+  before_script:
+    - cd roomee-fe
+    - yarn install
+  script:
+    - yarn prettier --check .
+
+jest:
+  image: "node:alpine"
+  stage: Test
+  needs: []
+  before_script:
+    - cd roomee-fe
+    - yarn install
+  script:
+    - yarn test

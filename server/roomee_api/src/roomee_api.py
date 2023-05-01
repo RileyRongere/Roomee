@@ -1,146 +1,129 @@
 from flask import Flask, request, jsonify
 import os
-from insert_query_DB import insert_user, query_user, query_answer
+from src.insert_query_DB import mySQL
 
 app = Flask(__name__)
 
 
 # method to return user from the insert_query_DB.py file
 # note that this does not check if the user has been created.
-def get_user(username):
-    user = query_user(username)
+def get_user(email):
+    is_valid(email)
+    db_conn = mySQL()
+    user = db_conn.query_user_by_email(email)
     return user
 
 
 # method to return all answers from the insert_query_DB.py file
 # note that this does not check if the user has completed the quiz.
 def get_answers(id):
-    answers = query_answer(
+    db_conn = mySQL()
+    answers = db_conn.query_answer_by_id(
         id
     )  ##CHANGE WHEN RILEY CHANGES THE FUNCTION, We wish to have all answers from this call
 
     return answers
 
 
-# Method to return every user to the endpoint /api/users
+def is_valid(dirty_string):
+    if not type(dirty_string) is str or " " in dirty_string:
+        return False
 
-
-# This probably doesn't need an endpoint associated with it. I don't think it will be called from outside the API -Kieran
-@app.route("/users", methods=["GET"])
-def get_users():
-    # Mock list of user ids
-    user_ids = []
-
-    return jsonify({"user_ids": user_ids})
-
-
-# Method to return a boolean to the endpoint /api/users if user_id exists
-
-
-# Same as above. This probably won't be called from the outside and so doesn't really need an endpoint -Kieran
-@app.route("/users", methods=["POST"])
-def check_user_exists():
-    # Fetch user_id to check from response
-    data = request.get_json()
-    user_id = data["user_id"]
-
-    # Mock list of user ids
-    user_ids = [37, 43, 1009]
-
-    if user_id in user_ids:
-        return jsonify({"user_exists": True})
     else:
-        return jsonify({"user_exists": False})
+        return True
 
 
-@app.route("/answers/username", methods=["GET", "POST"])
-# I suspect this will need to be altered to take a username parameter so we know whose answers we're checking - Kieran
-def get_answers(username):
+@app.route("/answers", methods=["GET", "POST"])
+# I suspect this will need to be altered to take a ID parameter so we know whose answers we're checking - Kieran
+def get_answers():
+    db_conn = mySQL()
     if request.method == "GET":
-        # Mock list of user answers
-        answer_ids = []
+        # Fetch stuff from call
+        data = request.get_json()
+        user_id = data.get("user_id")
 
-        return jsonify({"answer_ids": answer_ids})
+        answers = db_conn.query_answer(user_id)
+
+        return jsonify(answers)
 
     if request.method == "POST":
-        # Fetch answer_id to check
+        # Fetch stuff from call
         data = request.get_json()
-        answer_id = data["answer_id"]
+        user_id = data.get("user_id")
+        question_ids = data.get("question_id")  # list
+        answers = data.get("answers")  # list
 
-        # Mock list of answer ids
-        answer_ids = [27, 8, 90]
+        for i in question_ids:
+            db_conn.insert_answer(i, user_id, answers[i])
 
-        if answer_id in answer_ids:
-            return jsonify({"answer_exists": True})
-        else:
-            return jsonify({"answer_exists": False})
-
-
-# Check if user data is complete
-
-
-# Another that might not need an endpoint -Kieran
-@app.route("/user_is_complete/<username>", methods=["GET"])
-def user_is_complete(username):
-    # Mock user
-    user = {"Joe": {"questions": []}}
-    if username in user:
-        completed = bool(user[username]["questions"])
-        return jsonify({"is_completed": completed})
-    else:
-        return jsonify({"error": "User not found"})
+        return jsonify({"message": "Answers successfully posted"}), 201
 
 
 # Method to return all questions to an endpoint /api/questions
-@app.route("/questions", methods=["GET"])
-def get_questions():
-    question_ids = []
-    return jsonify({"question_ids": question_ids})
+# @app.route("/questions", methods=["GET"])
+# def get_questions():
+#     question_ids = []
+#     return jsonify({"question_ids": question_ids})
 
 
-# User methods endpoint, passes username as identifier
-# Still creating handlers dependent on the state of the dictionary object from FE
-@app.route("/user/<username>", methods=["GET", "POST"])
-def user_creation(username):
-    if request.method == "GET":
-        # access DB to find user
+# Method to check if a user exists and create them if they don't
+@app.route("/user/<email>", methods=["PUT"])
+def user_creation(email):
+    db_conn = mySQL()
+    if request.method == "PUT":
+        user = get_user(email)
 
-        # if the user exists
-        if username:
-            user = {}
-            # json object creation code here
-            return jsonify(username)
-        # else (username doesn't exist)
+        if user == {}:
+            # user doesn't exist
+            # create entry for user
+            db_conn.insert_user(email, "")
+
+            return jsonify({"message": "User created."}), 200
+
         else:
-            return jsonify({"error": "User not found"}), 404
-
-    elif request.method == "POST":
-        # retrieve dictionary
-        username_request_object = request.get_json()
-        # process dictionary from POST to figure out the task to perform on the given data
-        # if completing a user's password setup (handler)
-        Task = "user_creation"
-        # if completing a user's answers (handler)
-        Task = "answer_creation"
-
-        return jsonify({"message": f"{Task} Complete"})
+            # user already exists
+            return jsonify({"message": "User exists"}), 204
 
 
-# DB method implementation      in-progress
-@app.route("/test", methods=["POST"])
-def test_user_create():
-    user_details_object = request.get_json()
-    insert_user(user_details_object["email"], user_details_object["password"])
-
-    return jsonify(user_details_object), 201
+# Login endpint:
+# I am assuming to data will look something like this:
+# users = {'email': 'password'}
 
 
-# Creating Match Endpoint
-# Returns a list of the users matches
-@app.route("/match/<username>", methods=["POST"])
-def get_matches():
-    # Not sure where this list is coming from yet, need help filling this in
-    # I am guessing it is in some type of dictionary that we would need to just pull out of?
-    list_of_matches = []
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
 
-    return jsonify({"matches": list_of_matches})
+    # Is this what you mean by sanitize? I am removing any leading/trailing whitespace
+    if is_valid(email) and is_valid(password):
+        user = get_user(email)
+
+        if not user == {} and user["password"] == password:
+            return jsonify({"user" : user, "message": "Login successful."}), 200
+        else:
+            return jsonify({"message": "Invalid email or password."}), 403
+
+    else:
+        return jsonify({"message": "Invalid email or password format"}), 400
+
+
+# register endpoint to take in and save email and password
+@app.route("/register", methods=["POST"])
+def register_user():
+    db_conn = mySQL()
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+
+    # sanitize data
+    if is_valid(email) and is_valid(password):
+        db_conn.insert_user(email, password)
+
+        user = get_user(email)
+
+        return jsonify({"user": user, "message": "User created"}), 200
+
+    else:
+        return jsonify({"message": "Invalid email or password format"}), 400
