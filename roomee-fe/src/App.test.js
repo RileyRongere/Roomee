@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import renderer from 'react-test-renderer';
+import renderer from "react-test-renderer";
 import App from "./App";
 
 test("renders learn react link", () => {
@@ -14,7 +14,7 @@ test("renders learn react link", () => {
   expect(linkElement).toBeInTheDocument();
 });
 
-it('renders correctly', () => {
+it("renders correctly", () => {
   const tree = renderer
     .create(
       <BrowserRouter>
