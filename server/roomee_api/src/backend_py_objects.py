@@ -15,8 +15,8 @@ class Question:
         self.__question = question
 
         self.__dictionary = {
-            'id' : self.__id,
-            'question' : self.__question,
+            "id": self.__id,
+            "question": self.__question,
         }
 
     def return_dict(self):

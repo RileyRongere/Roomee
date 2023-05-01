@@ -8,7 +8,7 @@ def main():
     # connection = SQLite("http://localhost:9906/")
     while user_input != "Q":
         user_input = input("Input a character\n").upper()
-        
+
         # insert_user function
         if user_input == "IU":
             Email = input("Email\n").lower()
@@ -34,12 +34,11 @@ def main():
             PercentMatch = input("PercentMatch\n").lower()
             functions.insert_match(UserID_1, UserID_2, PercentMatch)
 
-
         # query_user_by_id function
         elif user_input == "QUE":
             Email = input("Email\n").lower()
             print(functions.query_user_by_email(Email))
-        
+
         # query_user_by_email function
         elif user_input == "QUI":
             u_id = input("ID\n").lower()
@@ -54,7 +53,7 @@ def main():
         elif user_input == "QA":
             u_id = input("user_id\n")
             print(functions.query_answer(u_id))
-        
+
         # query_matches function
         elif user_input == "QM":
             u_id = input("user_id\n")
