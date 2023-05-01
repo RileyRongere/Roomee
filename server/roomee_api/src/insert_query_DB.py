@@ -180,6 +180,8 @@ class mySQL(mySQLdatabase):
                 else:
                     return {}
                 
+
+    # returns all QuestionID's and Questions in a list of dictionaries
     def query_all_questions(self):
         # connect to database
         with mysql.connector.connect(
