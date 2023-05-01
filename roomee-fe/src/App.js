@@ -3,8 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home'
 import Dummy from './Pages/Dummy'
 import Quiz from './Pages/Quiz'
-import Username from './Pages/username_page'
-import Password from './Pages/password_page'
+import Username from './Pages/Username'
+import Password from './Pages/Password'
 
 export function App() {
   return (
