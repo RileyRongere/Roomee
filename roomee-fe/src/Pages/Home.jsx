@@ -19,6 +19,7 @@ const Home = () => {
         </a>
                 <Link to={"dummy"}>Go to Dummy</Link>
                 <Link to={"quiz"}>Go to Quiz</Link>
+                <Link to={"match"}>Go to Match</Link>
             </header>
         </div>
     );

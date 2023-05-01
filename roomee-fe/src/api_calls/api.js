@@ -1,6 +1,6 @@
 // api.js
 export const callApi = async (endpoint, method = 'GET', body) => {
-  const url = `http://localhost:5000/${endpoint}`;
+  const url = `http://localhost:5000/${endpoint}`; // Replace with your Flask API URL
   const options = {
     method,
     headers: {
@@ -19,7 +19,7 @@ export const callApi = async (endpoint, method = 'GET', body) => {
 };
 
 export const getQuestions = async () => {
-  return await callApi('questions');
+  return await callApi('questions'); // Replace 'questions' with your GET endpoint
 };
 
 export const submitAnswers = async (questionIds, userId, answers) => {
@@ -29,13 +29,11 @@ export const submitAnswers = async (questionIds, userId, answers) => {
     answers: answers,
   };
 
-  return await callApi('submit-answers', 'POST', payload);
+  //console.log(payload)
+  console.log("Answers Submitted!")
+  //return await callApi('submit-answers', 'POST', payload); // Replace 'submit-answers' with your POST endpoint
 };
 
 export const isCompleted = async () => {
-  return await callApi('is-completed');
-};
-
-export const getProfile = async () => {
-  return await callApi('profile');
+  return await callApi('is-completed'); // Replace 'is-completed' with your appropriate endpoint
 };
