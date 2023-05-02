@@ -162,5 +162,3 @@ def gender(user1, user2):
     elif user1["pref_gener"] == user2["gender"] and user2["pref_gender"] == user1["gender"]:
         match_list.append(user2)
         
-
-    
