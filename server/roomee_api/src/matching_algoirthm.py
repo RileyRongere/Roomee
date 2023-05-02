@@ -59,30 +59,6 @@ def intro_extro(user1,user2,user_list):
     if user1['type_e_i']=user2['type_e_i']:
         score=score+2
 
-def main:
-    high=[]
-    med=[]
-    low=[]
-    for users in users_list:
-        score=0
-        smoking(user1,user,user_list)
-        if user in user_list:
-            pet(user1,user,user_list)
-        if user in user_list:
-            score1=intro_extro(user1,user,score)
-            score2=friends_over(user1,user,score1)
-            score3=wake_up(user1,user,score2)
-            final_score=sleep(user1,user,score3)
-            if final_score < 5:
-                low.append(user)
-            elif final_score > 0:
-                high.append(user)
-            else:
-                med.append(user)
-
-
-match_list = []
-
 def clean(user1, user2, score):
     if user1["clean"] == user2["clean"]:
         score = score + 3
@@ -157,8 +133,46 @@ def age(user1, user2, score):
 
 # both users must have same gender preference to be matched
 def gender(user1, user2):
-    if user1["pref_gender"] == 3 and user2["pref_gender"] == 3:
-        match_list.append(user2)
-    elif user1["pref_gener"] == user2["gender"] and user2["pref_gender"] == user1["gender"]:
-        match_list.append(user2)
+    if user1["pref_gener"] != user2["gender"] and user2["pref_gender"] != user1["gender"]:
+        user_list.remove(user2)
+    if user1["gender"] == 3 and user2["pref_gender"] == 3:
+        user_list.append(user2)
+
+
+
+
+
+
+def main:
+    high=[]
+    med=[]
+    low=[]
+    for users in users_list:
+        score=0
+        smoking(user1,user,user_list)
+        if user in user_list:
+            pet(user1,user,user_list)
+        if user in user_list:
+            gender(user1,user,user_list)
+        if user in user_list:
+            score1=intro_extro(user1,user,score)
+            score2=friends_over(user1,user,score1)
+            score3=wake_up(user1,user,score2)
+            score4=clean(user1,user,score3)
+            score5=noise(user1,user,score4)
+            score6=space(user1,user,score5)
+            score7=busy_week(user1,user,score6)
+            score8=busy_weekend(user1,user,score7)
+            score9=age(user1,user,score8)
+            final_score=sleep(user1,user,score9)
+            if final_score < 5:
+                low.append(user)
+            elif final_score > 0:
+                high.append(user)
+            else:
+                med.append(user)
+
+
+
+
         
