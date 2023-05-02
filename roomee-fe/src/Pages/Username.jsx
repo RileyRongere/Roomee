@@ -1,33 +1,33 @@
 import React from "react";
 import { callApi } from "../api_calls/api";
+import { useState } from 'react';
 
-const checkUser = async () => {
-  return await callApi("users");
-};
+// const handleClickSignIn = () => {
+//   console.log("come handle click fun");
+//   this.props.history.push({
+//     pathname: "/password_page",
+//     state: { username: "Steven" },
+//   });
+// }
 
-// we need to figure out how to hold if the user is true or not
-// then pass that to the next page and change the contents bassed on that
+function Username() {
+  const [userName, setUserName] = useState('Username');
 
-// also pass the username on for search
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setUserName('Username')
+    console.log(userName)
+  };
 
-function handleClickSignIn() {
-  console.log("come handle click fun");
-  this.props.history.push({
-    pathname: "/password_page",
-    state: { username: "Steven" },
-  });
-}
-
-const Username = (props) => {
   return (
     <div className="container">
       <h1>Roomee</h1>
       <h2>Login</h2>
-      <form id="username" onSubmit="checkUser()">
+      <form id="username" onSubmit={handleSubmit}>
         <label>
-          <input type="email" placeholder="Username" name="name" />
+          <input type="email" placeholder={userName} name="name" onChange={(event) => setUserName(event.target.value)}/>
         </label>
-        <button class="button">Submit</button>
+        <button className="button">Submit</button>
       </form>
     </div>
   );
