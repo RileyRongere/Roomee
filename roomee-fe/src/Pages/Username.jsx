@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { callApi } from "../api_calls/api";
 
 const checkUser = async () => {
@@ -18,7 +19,7 @@ function handleClickSignIn() {
   });
 }
 
-const Username = (props) => {
+export function App(props) {
   return (
     <div className="container">
       <h1>Roomee</h1>
@@ -31,9 +32,7 @@ const Username = (props) => {
       </form>
     </div>
   );
-};
-
-export default Username;
+}
 
 // Log to console
 // console.log('Username Entered')

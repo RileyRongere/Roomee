@@ -1,6 +1,6 @@
 // api.js
 export const callApi = async (endpoint, method = "GET", body) => {
-  const url = `http://localhost:5000/${endpoint}`; // Replace with your Flask API URL
+  const url = `http://localhost:5000/${endpoint}`;
   const options = {
     method,
     headers: {
@@ -36,4 +36,13 @@ export const submitAnswers = async (questionIds, userId, answers) => {
 
 export const isCompleted = async () => {
   return await callApi("is-completed"); // Replace 'is-completed' with your appropriate endpoint
+};
+
+export const getMatches = async (payload) => {
+  return await callApi("match", payload); // Replace 'is-completed' with your appropriate endpoint
+};
+
+
+export const getUserExists = async (user_id) => {
+   return await callApi(user_id, method="PUT")
 };
