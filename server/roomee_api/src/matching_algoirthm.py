@@ -25,34 +25,30 @@ user1=Kara
 
 question_list=[id_1,id_2,id_3] #Needs to be a list that does not include pet, gender, and amoking questions
 
-def main():
+def main:
     high=[]
     med=[]
     low=[]
-    for user in user_list:
+    for users in users_list:
         score=0
-        gender(user1, user, user_list)
+        smoking(user1,user,user_list)
         if user in user_list:
-            remove(user1, user2, have_pet, want_pet,user_list) 
-        if user in user_list: 
-            remove(user2, user1, have_pet, want_pet,user_list)
+            pet(user1,user,user_list)
         if user in user_list:
-            remove(user1, user2, smoke, smoke_ok,user_list) 
-        if user in user_list:
-            remove(user2, user1, smoke, smoke_ok,user_list)
-        if user in user_list:
-            for question in question_list:
-                score = distance(user1, user, question, score) 
-        if score < 3: #Need to be changed
-            high.append(user)
-        elif score > 15: #Need to be changed
-            low.append(user)
-        else:
-            med.append(user)
+            score1=intro_extro(user1,user,score)
+            score2=friends_over(user1,user,score1)
+            score3=wake_up(user1,user,score2)
+            final_score=sleep(user1,user,score3)
+            if final_score < 5:
+                low.append(user)
+            elif final_score > 0:
+                high.append(user)
+            else:
+                med.append(user)
 
 
 
 
 
 
-
+        
