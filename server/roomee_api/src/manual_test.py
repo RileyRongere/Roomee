@@ -2,6 +2,8 @@
 from insert_query_DB import *
 
 functions = mySQL()
+
+
 # For use of the DB team to manually test insert and query functions, expand as needed
 def main():
     user_input = "R"

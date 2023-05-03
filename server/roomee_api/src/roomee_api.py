@@ -63,9 +63,8 @@ def get_answers():
 # Method to return all questions to an endpoint /api/questions
 @app.route("/questions", methods=["GET"])
 def get_questions():
-     db_conn = mySQL()
-     if request.method == "GET":
-         
+    db_conn = mySQL()
+    if request.method == "GET":
         questions = db_conn.query_all_questions()
         return jsonify({"questions": questions}), 200
 
@@ -187,5 +186,7 @@ def get_matches():
         curr_match["matchScore"] = i["PercentMatch"]
         match_dict[curr_id] = curr_match
 
-    return jsonify({user_id: input_info, "matches": match_dict}), 200  # as frontend desires
-
+    return (
+        jsonify({user_id: input_info, "matches": match_dict}),
+        200,
+    )  # as frontend desires
