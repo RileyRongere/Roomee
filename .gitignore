@@ -163,3 +163,4 @@ dmypy.json
 roomee-fe/.yarn/*
 .yarn/releases/yarn-3.5.0.cjs
 node_modules
+roomee-fe/node_modules
