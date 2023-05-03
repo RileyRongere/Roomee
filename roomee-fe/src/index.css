@@ -11,3 +11,34 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* General page styles */
+.page {
+  margin: auto;
+  text-align: center;
+  width: 50%;
+}
+
+/* Match page styles*/
+.matchContainer {
+  margin: auto;
+  text-align: center;
+  width: 50%;
+}
+.matchDisplay {
+  display: flex;
+  flex-direction: row;
+  padding: 40px;
+}
+
+.userAnswers {
+  padding: 10px;
+}
+
+.matchAnswers {
+  padding: 10px;
+}
+
+.questionGrid {
+  padding: 10px;
+}

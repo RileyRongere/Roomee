@@ -1,8 +1,4 @@
-# Authors: Riley Rongere, Emma Gerdeman
-
-from src.backend_py_objects import *
-import sqlite3
-
+# Authors: Riley Rongere, Emma Gerdeman, Lane Affield, Nick Wharff, Nick Peters, Priscilla Tuazon
 
 # For use by the API team to query and insert objects to the DB
 from backend_py_objects import *
@@ -152,6 +148,7 @@ class mySQL(mySQLdatabase):
                 else:
                     return {}
 
+    # returns all QuestionID's and Questions in a list of dictionaries
     def query_all_questions(self):
         # connect to database
         with mysql.connector.connect(
