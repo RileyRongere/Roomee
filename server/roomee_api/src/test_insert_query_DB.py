@@ -1,3 +1,5 @@
+#Authored by Lane Affield, Emma Gerdeman, Nick Wharff
+
 from src.roomee_api import app
 import pytest
 import mysql.connector

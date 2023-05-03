@@ -1,4 +1,4 @@
-# Authors: Riley Rongere, Emma Gerdeman, Lane Affield, Nick Wharff, Nick Peters
+# Authors: Riley Rongere, Emma Gerdeman, Lane Affield, Nick Wharff, Nick Peters, Priscilla Tuazon
 
 # For use by the API team to query and insert objects to the DB
 from backend_py_objects import *
