@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { callApi, getUserExists, submitPassword, userLogin, userRegister} from "../api_calls/api";
+import {
+  callApi,
+  getUserExists,
+  submitPassword,
+  userLogin,
+  userRegister,
+} from "../api_calls/api";
 import { useState } from "react";
 // need to get username form the other page - how pass?
 
@@ -37,12 +43,12 @@ const Password = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(password);
-    userLogin(submittedUser, password)
-    
+    userLogin(submittedUser, password);
+
     // if(getUserExists(submittedUser)){
-      // }else{
-        //   userRegister(submittedUser, password)
-        // }
+    // }else{
+    //   userRegister(submittedUser, password)
+    // }
     //setPassword("");
   };
   //console.log(getUserExists("user/kevindurant@gmail.com"))
@@ -57,14 +63,11 @@ const Password = (props) => {
           placeholder="password"
           onChange={(event) => setPassword(event.target.value)}
         ></input>
-      <button
-          className="button"
-          onClick={handleSubmit}
-        >
+        <button className="button" onClick={handleSubmit}>
           Submit
         </button>
       </form>
-      <Link to = {"/username"}>user</Link>
+      <Link to={"/username"}>user</Link>
     </div>
   );
 };

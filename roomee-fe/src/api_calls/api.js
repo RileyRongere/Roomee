@@ -1,23 +1,22 @@
 // callApi calls the api endpoint and allows the user to submit and receive data from the back end
 export const callApi = async (endpoint, method, body) => {
-  console.log("call api")
+  console.log("call api");
   const url = `http://localhost:3050/api/${endpoint}`;
   const options = {
     method: method,
     headers: {
       "Content-Type": "application/json",
-    }
-    
+    },
   };
 
   if (body) {
     options.body = JSON.stringify(body);
   }
-  console.log(url)
-  console.log(options)
+  console.log(url);
+  console.log(options);
   const response = await fetch(url, options);
   // const data = await response.json();
-  const data = await response
+  const data = await response;
   return data;
 };
 
@@ -58,7 +57,6 @@ export const submitPassword = async (username, password) => {
   console.log("Password Submitted!");
   return await callApi("login", "POST", payload);
 };
-
 
 // Submits a username and password pair to login endpoint
 export const userLogin = async (username, password) => {
