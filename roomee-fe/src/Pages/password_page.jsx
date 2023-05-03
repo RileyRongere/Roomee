@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { getUserExists, submitPassword } from "../api_calls/api";
+import { useState } from 'react';
 // need to get username form the other page - how pass?
 
 function searchPassword() {
@@ -34,18 +36,35 @@ function searchPassword() {
 // </div>
 
 const Password = (props) => {
-  const { state } = useLocation();
+  const [password, setPassword] = useState('')
 
-  console.log(state.name);
+  const { state } = useLocation();
+  console.log(state.name['userName']);
+
+  const submittedUser = state.name['userName']
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setPassword('')
+    console.log(password);
+
+    if(getUserExists(submittedUser)){
+      //userLogin(submittedUser, password)
+    }else{
+      //userRegister(submittedUser, password)
+    }
+  };
+
   return (
     <div className="Password">
       <h1>Password Page</h1>
-      <form id="password">
+      <form id="password" onSubmit = {handleSubmit}>
         <input
           type="text"
           id="password"
           name="password"
           placeholder="password"
+          onChange={(event) => setPassword(event.target.value)}
         ></input>
       </form>
     </div>
