@@ -49,8 +49,8 @@ export const getUserExists = async (user_id) => {
 // Submits a username and password pair to login endpoint
 export const userLogin = async (username, password) => {
   const payload = {
-    "username": username,
-    "password": password
+    username: username,
+    password: password,
   };
   console.log("User login!");
   return await callApi("login", "POST", payload);
@@ -59,8 +59,8 @@ export const userLogin = async (username, password) => {
 // Submits a username and password pair to the register endpiont
 export const userRegister = async (username, password) => {
   const payload = {
-    "username": username,
-    "password": password
+    username: username,
+    password: password,
   };
   console.log("User register!");
   return await callApi("register", "POST", payload);
