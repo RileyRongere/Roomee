@@ -25,15 +25,15 @@ user1=Kara
 
 question_list=[id_1,id_2,id_3] #Needs to be a list that does not include pet, gender, and amoking questions
 
-def main:
+def main():
     high=[]
     med=[]
     low=[]
-    for users in users_list:
+    for user in user_list:
         score=0
-        smoking(user1,user,user_list)
+        gender(user1, user, user_list)
         if user in user_list:
-            pet(user1,user,user_list)
+            remove(user1, user2, q1, q2,user_list) #need to change q1 and q2, just put all four in manually?
         if user in user_list:
             score1=intro_extro(user1,user,score)
             score2=friends_over(user1,user,score1)
