@@ -1,23 +1,29 @@
 // callApi calls the api endpoint and allows the user to submit and receive data from the back end
-export const callApi = async (endpoint, method, body) => {
-  console.log("call api");
-  const url = `http://localhost:3050/api/${endpoint}`;
-  const options = {
-    method: method,
+function buildOptions(method, body) {
+  var options = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-
-  if (body) {
-    options.body = JSON.stringify(body);
+  if (arguments[1] === undefined) {
+    options["method"] = method;
+  } else if (arguments[1] !== undefined) {
+    options["method"] = method;
+    options["body"] = JSON.stringify(body);
   }
-  console.log(url);
-  console.log(options);
+  return options;
+}
+
+export const callApi = async (endpoint, method, body) => {
+  console.log("call api");
+
+  const url = `http://localhost:3050/api/${endpoint}`;
+  const options = buildOptions(method, body);
+
   const response = await fetch(url, options);
   // const data = await response.json();
-  const data = await response;
-  return data;
+  // const data = response;
+  return response;
 };
 
 // Function to get questions for the Quiz.jsx page
@@ -45,7 +51,13 @@ export const getMatches = async (payload) => {
 
 // Boolean Value that checks to see if the user exists
 export const getUserExists = async (user_id) => {
-  return await callApi(user_id, "PUT");
+  const userBase = "user/";
+  const userEndpoint = userBase.concat(user_id);
+  let getUserResponse = await callApi(userEndpoint, "PUT", undefined).then(
+    (response) => response
+  );
+  const userStatus = getUserResponse["status"];
+  return userStatus;
 };
 
 // Submits password and username to the api team to be written in the database
@@ -65,7 +77,12 @@ export const userLogin = async (username, password) => {
     password: password,
   };
   console.log("User login!");
-  return await callApi("login", "POST", payload);
+  let loginResponse = await callApi("login", "POST", payload).then((response) =>
+    response.json()
+  );
+  // console.log("RESPONSE")
+  // console.log(loginResponse)
+  return loginResponse;
 };
 
 // Submits a username and password pair to the register endpiont
