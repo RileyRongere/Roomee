@@ -33,7 +33,13 @@ def main():
         score=0
         gender(user1, user, user_list)
         if user in user_list:
-            remove(user1, user2, q1, q2,user_list) #need to change q1 and q2, just put all four in manually?
+            remove(user1, user2, have_pet, want_pet,user_list) 
+        if user in user_list: 
+            remove(user2, user1, have_pet, want_pet,user_list)
+        if user in user_list:
+            remove(user1, user2, smoke, smoke_ok,user_list) 
+        if user in user_list:
+            remove(user2, user1, smoke, smoke_ok,user_list)
         if user in user_list:
             score1=intro_extro(user1,user,score)
             score2=friends_over(user1,user,score1)
