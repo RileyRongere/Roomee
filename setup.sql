@@ -1,6 +1,3 @@
-'''
-Authored by Emma Gerdeman, Nick Wharff, Lane Affield, Riley Rongere 
-'''
 DROP TABLE IF EXISTS USER;
 
 CREATE TABLE IF NOT EXISTS USER (
