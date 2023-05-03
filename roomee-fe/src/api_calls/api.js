@@ -43,15 +43,25 @@ export const getMatches = async (payload) => {
 
 // Boolean Value that checks to see if the user exists
 export const getUserExists = async (user_id) => {
-  return await callApi(user_id, "PUT");
+  return await callApi(`user/${user_id}`, "PUT");
 };
 
-// Submits password and username to the api team to be written in the database
-export const submitPassword = async (username, password) => {
+// Submits a username and password pair to login endpoint
+export const userLogin = async (username, password) => {
   const payload = {
-    username: username,
-    password: password,
+    "username": username,
+    "password": password
   };
-  console.log("Password Submitted!");
+  console.log("User login!");
   return await callApi("login", "POST", payload);
+};
+
+// Submits a username and password pair to the register endpiont
+export const userRegister = async (username, password) => {
+  const payload = {
+    "username": username,
+    "password": password
+  };
+  console.log("User register!");
+  return await callApi("register", "POST", payload);
 };
