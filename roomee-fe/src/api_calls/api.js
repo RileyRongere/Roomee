@@ -1,6 +1,6 @@
 // callApi calls the api endpoint and allows the user to submit and receive data from the back end
 export const callApi = async (endpoint, method = "GET", body) => {
-  const url = `http://localhost:5000/${endpoint}`;
+  const url = `http://localhost:3050/api/${endpoint}`;
   const options = {
     method,
     headers: {
@@ -41,7 +41,17 @@ export const getMatches = async (payload) => {
   return await callApi('match', payload);
 };
 
-
+// Boolean Value that checks to see if the user exists
 export const getUserExists = async (user_id) => {
    return await callApi(user_id, 'PUT')
+};
+
+// Submits password and username to the api team to be written in the database
+export const submitPassword = async (username, password) => {
+  const payload = {
+      "username":username,
+      "password":password
+  }
+   console.log("Password Submitted!");
+   return await callApi('login', 'POST', payload)
 };
