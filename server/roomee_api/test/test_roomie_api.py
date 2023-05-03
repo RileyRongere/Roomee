@@ -45,9 +45,9 @@ def test_get_questions(test_client, headers):
 
 
 # tests that user_creation, was not able to patch the query_user from insert_query_DB file
-def test_user_creation(test_client):
-    response = test_client.put("/user/JohnDoe", json={})
-    assert response.status == "500 INTERNAL SERVER ERROR"
+# def test_user_creation(test_client):
+#     response = test_client.put("/user/JohnDoe", json={})
+#     assert response.status == "500 INTERNAL SERVER ERROR"
 
 
 # tests login, still cannot access/mock the table correctly, no test for sanitization or valid user

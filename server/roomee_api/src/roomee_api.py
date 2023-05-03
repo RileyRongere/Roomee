@@ -1,8 +1,57 @@
+# test file
+
 from flask import Flask, request, jsonify
 import os
+import json
 from src.insert_query_DB import insert_user, query_user, query_answer
 
 app = Flask(__name__)
+
+# mockedDB for FE testing
+
+
+# helper functions for mockedDB
+def get_next_user_id(data):
+    user_ids = [
+        int(key.replace("user_id", ""))
+        for key in data.keys()
+        if key.startswith("user_id")
+    ]
+    return "user_id" + str(max(user_ids) + 1)
+
+
+def search_username(data, target_username):
+    for user_id, user_data in data.items():
+        if "username" in user_data and user_data["username"] == target_username:
+            return user_id, user_data
+    return {}
+
+
+def mocked_user(username):
+    with open("roomee.store", "r") as mocked_DB:
+        fake_DB = json.load(mocked_DB)
+        return search_username(fake_DB, username)
+
+
+def mocked_user_insert(username, password):
+    with open("roomee.store", "r") as mocked_DB:
+        fake_DB = json.load(mocked_DB)
+    with open("roomee.store", "w") as mocked_DB:
+        fake_DB[get_next_user_id(data)] = {
+            "username": username,
+            "password": password,
+            "answers": ["test", "test"],
+        }
+        json.dumps(fake_DB, mocked_DB)
+
+
+# # Add new entry
+# new_key = get_next_user_id(data)
+# data[new_key] = new_dict
+
+# # Save updated data
+# with open(file, "w") as f:
+#     json.dump(data, f)
 
 
 # method to return user from the insert_query_DB.py file
@@ -68,14 +117,12 @@ def get_questions():
 @app.route("/user/<username>", methods=["PUT"])
 def user_creation(username):
     if request.method == "PUT":
-        user = get_user(username)
+        user = mocked_user(username)
 
         if user == {}:
             # user doesn't exist
-            # create entry for user
-            insert_user(username, "")
 
-            return jsonify({"message": "User created."}), 200
+            return jsonify({"message": "User does not exist"}), 200
 
         else:
             # user already exists
