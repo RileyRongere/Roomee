@@ -1,7 +1,8 @@
 import React from "react";
 import { callApi } from "../api_calls/api";
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // const handleClickSignIn = () => {
 //   console.log("come handle click fun");
 //   this.props.history.push({
@@ -13,6 +14,7 @@ import { useState } from "react";
 function Username() {
   const [userName, setUserName] = useState("Username");
 
+  const navigate = useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault();
     setUserName("Username");
@@ -32,7 +34,8 @@ function Username() {
             onChange={(event) => setUserName(event.target.value)}
           />
         </label>
-        <button className="button">Submit</button>
+      
+        <button className="button" onClick={() => {navigate( '/password',{ state: {name: {userName}}})}}>Submit</button>
       </form>
     </div>
   );
