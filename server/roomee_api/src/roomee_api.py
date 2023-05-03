@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import os
-from src.insert_query_DB import insert_user, query_user, query_answer
+from src.insert_query_DB import mySQL
 
 app = Flask(__name__)
 
@@ -9,14 +9,14 @@ app = Flask(__name__)
 # note that this does not check if the user has been created.
 def get_user(username):
     is_valid(username)
-    user = query_user(username)
+    user = mySQL().query_user(username)
     return user
 
 
 # method to return all answers from the insert_query_DB.py file
 # note that this does not check if the user has completed the quiz.
 def get_answers(id):
-    answers = query_answer(
+    answers = mySQL().query_answer(
         id
     )  ##CHANGE WHEN RILEY CHANGES THE FUNCTION, We wish to have all answers from this call
 
@@ -73,7 +73,7 @@ def user_creation(username):
         if user == {}:
             # user doesn't exist
             # create entry for user
-            insert_user(username, "")
+            mySQL().insert_user(username, "")
 
             return jsonify({"message": "User created."}), 200
 
@@ -115,7 +115,7 @@ def register_user():
 
     # sanitize data
     if is_valid(username) and is_valid(password):
-        insert_user(username, password)
+        mySQL().insert_user(username, password)
 
         return jsonify({"User created"}), 200
 
