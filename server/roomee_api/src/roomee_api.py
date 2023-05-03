@@ -60,10 +60,13 @@ def get_answers():
 
 
 # Method to return all questions to an endpoint /api/questions
-# @app.route("/questions", methods=["GET"])
-# def get_questions():
-#     question_ids = []
-#     return jsonify({"question_ids": question_ids})
+@app.route("/questions", methods=["GET"])
+def get_questions():
+     db_conn = mySQL()
+     if request.method == "GET":
+         
+        questions = db_conn.query_all_questions()
+        return jsonify({"questions": questions}), 200
 
 
 # Method to check if a user exists and create them if they don't
@@ -183,3 +186,4 @@ def get_matches():
         match_dict[curr_id] = curr_match
 
     return {user_id: input_info, "matches": match_dict}  # as frontend desires
+
