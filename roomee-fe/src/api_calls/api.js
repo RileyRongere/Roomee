@@ -33,25 +33,25 @@ export const submitAnswers = async (questionIds, userId, answers) => {
 
   //console.log(payload)
   console.log("Answers Submitted!");
-  return await callApi('submitAnswers', 'POST', payload);
+  return await callApi("submitAnswers", "POST", payload);
 };
 
 // Gets a list of matches when the api is given a user_id
 export const getMatches = async (payload) => {
-  return await callApi('match', payload);
+  return await callApi("match", payload);
 };
 
 // Boolean Value that checks to see if the user exists
 export const getUserExists = async (user_id) => {
-   return await callApi(user_id, 'PUT')
+  return await callApi(user_id, "PUT");
 };
 
 // Submits password and username to the api team to be written in the database
 export const submitPassword = async (username, password) => {
   const payload = {
-      "username":username,
-      "password":password
-  }
-   console.log("Password Submitted!");
-   return await callApi('login', 'POST', payload)
+    username: username,
+    password: password,
+  };
+  console.log("Password Submitted!");
+  return await callApi("login", "POST", payload);
 };
