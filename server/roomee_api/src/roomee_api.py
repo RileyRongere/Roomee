@@ -173,7 +173,6 @@ def get_matches():
     matches = db_conn.query_matches(user_id)  # list of dicts
     # [{MatchID, UserID_1, UserID_2, PercentMatch}]
 
-    match_list = []
     # all_questions = db_conn.query_all_questions() #all questions for reference
     # [{QuestionID, Question}]
 
@@ -185,5 +184,5 @@ def get_matches():
         curr_match["matchScore"] = i["PercentMatch"]
         match_dict[curr_id] = curr_match
 
-    return {user_id: input_info, "matches": match_dict}  # as frontend desires
+    return jsonify({user_id: input_info, "matches": match_dict}), 200  # as frontend desires
 
