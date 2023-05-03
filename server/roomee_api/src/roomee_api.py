@@ -101,7 +101,7 @@ def login():
         user = get_user(email)
 
         if not user == {} and user["password"] == password:
-            return jsonify({"user" : user, "message": "Login successful."}), 200
+            return jsonify({"user": user, "message": "Login successful."}), 200
         else:
             return jsonify({"message": "Invalid email or password."}), 403
 
@@ -127,3 +127,59 @@ def register_user():
 
     else:
         return jsonify({"message": "Invalid email or password format"}), 400
+
+
+# Function to generate match in format frontend wants
+def dumb_format(id):
+    # The name was because I was frustrated. No personal offense should be taken.
+    db_conn = mySQL()
+    qid = []  # temp question id
+    question = []  # temp question
+    answers = []  # temp answers
+
+    curr_answers = db_conn.query_answer(id)  # list
+    # [{AnswerID, UserID, QuestionID, Answer}]
+
+    qid = [q["QuestionID"] for q in curr_answers]  # question IDs
+    for j in qid:
+        question.append(
+            db_conn.query_question(j["QuestionID"])["Question"]
+        )  # add question
+        # this seems faster than iterating through the all_questions variable that
+        # is commented out.
+
+    answers = [q["Answer"] for q in curr_answers]  # answers
+
+    return {
+        "question_ids": qid,
+        "questions": question,
+        "answers": answers,
+    }  # format frontend wants
+
+
+# match endpoint
+@app.route("/matches", methods=["GET"])
+def get_matches():
+    # should output in way depicted by frontend
+    db_conn = mySQL()
+    data = request.get_json()
+    user_id = data.get("user_id")
+
+    input_info = dumb_format(user_id)  # inputted person's question data
+
+    matches = db_conn.query_matches(user_id)  # list of dicts
+    # [{MatchID, UserID_1, UserID_2, PercentMatch}]
+
+    match_list = []
+    # all_questions = db_conn.query_all_questions() #all questions for reference
+    # [{QuestionID, Question}]
+
+    # need to query answers for every user
+    match_dict = {}
+    for i in matches:
+        curr_id = i["UserID_2"]  # current match id
+        curr_match = dumb_format(curr_id)
+        curr_match["matchScore"] = i["PercentMatch"]
+        match_dict[curr_id] = curr_match
+
+    return {user_id: input_info, "matches": match_dict}  # as frontend desires
