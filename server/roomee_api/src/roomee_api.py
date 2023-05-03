@@ -134,11 +134,12 @@ def login():
     username = data.get("username")
     password = data.get("password")
 
+    print(data)
     # Is this what you mean by sanitize? I am removing any leading/trailing whitespace
     if is_valid(username) and is_valid(password):
         user = mocked_user(username)
 
-        if not user == {} and user["password"] == password:
+        if not user == {} and user["Password"] == password:
             return jsonify({"message": "Login successful."}), 200
         else:
             return jsonify({"message": "Invalid username or password."}), 403

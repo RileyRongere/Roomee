@@ -1,17 +1,8 @@
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { getUserExists, submitPassword } from "../api_calls/api";
+import { callApi, getUserExists, submitPassword, userLogin, userRegister} from "../api_calls/api";
 import { useState } from "react";
 // need to get username form the other page - how pass?
-
-function searchPassword() {
-  fetch("api_name");
-  // if
-
-  // else
-
-  // Conditional statment that sends password and either calls next page or throws an error message
-}
 
 // we need to change heading to a conditional bassed on if the username is found or not
 
@@ -45,16 +36,16 @@ const Password = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setPassword("");
     console.log(password);
-
+    userLogin(submittedUser, password)
+    
     // if(getUserExists(submittedUser)){
-    //   //userLogin(submittedUser, password)
-    // }else{
-    //   //userRegister(submittedUser, password)
-    // }
+      // }else{
+        //   userRegister(submittedUser, password)
+        // }
+    //setPassword("");
   };
-
+  //console.log(getUserExists("user/kevindurant@gmail.com"))
   return (
     <div className="Password">
       <h1>Password Page</h1>
@@ -66,7 +57,14 @@ const Password = (props) => {
           placeholder="password"
           onChange={(event) => setPassword(event.target.value)}
         ></input>
+      <button
+          className="button"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
       </form>
+      <Link to = {"/username"}>user</Link>
     </div>
   );
 };
