@@ -16,36 +16,39 @@ function searchPassword() {
 // function componentDidMount() {
 //   console.log(this.props.location.state.username);
 // }
-    // <div className="Password">
-    //   <head>
-    //     <h2> Enter Password Here </h2>
-    //     <form id="password" onSubmit="searchPassword()">
-    //       <input
-    //         type="text"
-    //         id="password"
-    //         name="password"
-    //         placeholder="password"
-    //         size="15"
-    //       >
-    //       </input>
-    //       <button class="button">Submit</button>
-    //     </form>
-    //   </head>
-    // </div>
-
+// <div className="Password">
+//   <head>
+//     <h2> Enter Password Here </h2>
+//     <form id="password" onSubmit="searchPassword()">
+//       <input
+//         type="text"
+//         id="password"
+//         name="password"
+//         placeholder="password"
+//         size="15"
+//       >
+//       </input>
+//       <button class="button">Submit</button>
+//     </form>
+//   </head>
+// </div>
 
 const Password = (props) => {
-  const {state} = useLocation();
+  const { state } = useLocation();
 
-  console.log(state.name)
+  console.log(state.name);
   return (
-    <div className = "Password">
+    <div className="Password">
       <h1>Password Page</h1>
-      <form id = "password">
-        <input type = "text" id = "password" name = "password" placeholder = "password"></input>
+      <form id="password">
+        <input
+          type="text"
+          id="password"
+          name="password"
+          placeholder="password"
+        ></input>
       </form>
     </div>
-
   );
 };
 export default Password;

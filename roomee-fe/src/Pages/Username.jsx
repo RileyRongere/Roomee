@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 function Username() {
   const [userName, setUserName] = useState("Username");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     setUserName("Username");
@@ -34,8 +34,15 @@ function Username() {
             onChange={(event) => setUserName(event.target.value)}
           />
         </label>
-      
-        <button className="button" onClick={() => {navigate( '/password',{ state: {name: {userName}}})}}>Submit</button>
+
+        <button
+          className="button"
+          onClick={() => {
+            navigate("/password", { state: { name: { userName } } });
+          }}
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
