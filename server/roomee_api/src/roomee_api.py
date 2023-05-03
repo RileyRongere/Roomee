@@ -36,22 +36,15 @@ def mocked_user(username):
 def mocked_user_insert(username, password):
     with open("roomee.store", "r") as mocked_DB:
         fake_DB = json.load(mocked_DB)
-    with open("roomee.store", "w") as mocked_DB:
-        fake_DB[get_next_user_id(data)] = {
+    
+    # write new user
+    fake_DB[get_next_user_id(fake_DB)] = {
             "username": username,
             "password": password,
-            "answers": ["test", "test"],
-        }
+            "answers": ["test", "test"]}
+
+    with open("roomee.store", "w") as mocked_DB:
         json.dumps(fake_DB, mocked_DB)
-
-
-# # Add new entry
-# new_key = get_next_user_id(data)
-# data[new_key] = new_dict
-
-# # Save updated data
-# with open(file, "w") as f:
-#     json.dump(data, f)
 
 
 # method to return user from the insert_query_DB.py file
@@ -142,7 +135,7 @@ def login():
 
     # Is this what you mean by sanitize? I am removing any leading/trailing whitespace
     if is_valid(username) and is_valid(password):
-        user = get_user(username)
+        user = mocked_user(username)
 
         if not user == {} and user["password"] == password:
             return jsonify({"message": "Login successful."}), 200
@@ -162,7 +155,7 @@ def register_user():
 
     # sanitize data
     if is_valid(username) and is_valid(password):
-        insert_user(username, password)
+        mocked_user_insert(username, password)
 
         return jsonify({"User created"}), 200
 
