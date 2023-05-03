@@ -1,0 +1,86 @@
+{
+
+    "question_ids": [
+
+        "question_id1",
+        "question_id2"
+    ],
+
+    "questions": [
+
+        "Do you get up early or stay up late? (Rate 1 - 5)",
+        "Do you usually keep your area clean or messy? (Rate 1 - 5)"
+
+    ],
+
+    "user_id1": {
+
+            "username":"kevindurant@gmail.com",
+
+            "password":"SlimReaper",
+
+            "answers": [
+
+                "5",
+                "4"
+
+            ]
+    },
+
+    "user_id2": {
+
+            "username":"lebronjames@outlook.com",
+
+            "password":"King",
+
+            "answers": [
+
+                "1",
+                "1"
+
+            ]
+    },
+
+    "user_id3": {
+
+            "username":"tombrady@yahoo.com",
+
+            "password":"GOAT",
+
+            "answers": [
+
+                "1",
+                "2"
+
+            ]
+    },
+
+    "user_id4": {
+
+            "username":"shaq@bing.com",
+
+            "password":"ChuckSucks",
+
+            "answers": [
+
+                "5",
+                "answer2"
+
+            ]
+    },
+
+    "user_id5": {
+
+            "username":"jimmybutler@gmail.com",
+
+            "password":"HeatIn6",
+
+            "answers": [
+
+                "5",
+                "3"
+
+            ]
+    }
+
+}
