@@ -3,6 +3,7 @@
 from flask import Flask, request, jsonify
 import os
 import json
+import sys
 from src.insert_query_DB import insert_user, query_user, query_answer
 
 app = Flask(__name__)
@@ -37,15 +38,20 @@ def mocked_user_insert(username, password):
     with open("roomee.store", "r") as mocked_DB:
         fake_DB = json.load(mocked_DB)
 
+        print(fake_DB, file=sys.stderr)
+
     # write new user
+    print(get_next_user_id(fake_DB), file=sys.stderr)
     fake_DB[get_next_user_id(fake_DB)] = {
         "username": username,
         "password": password,
         "answers": ["test", "test"],
     }
 
+    file_json_object = json.dumps(fake_DB)
+
     with open("roomee.store", "w") as mocked_DB:
-        json.dumps(fake_DB, mocked_DB)
+        mocked_DB.write(file_json_object)
 
 
 # method to return user from the insert_query_DB.py file
@@ -134,12 +140,14 @@ def login():
     username = data.get("username")
     password = data.get("password")
 
-    print(data)
+    print(data, file=sys.stderr)
+
     # Is this what you mean by sanitize? I am removing any leading/trailing whitespace
     if is_valid(username) and is_valid(password):
         user = mocked_user(username)
+        print(user, file=sys.stderr)
 
-        if not user == {} and user["Password"] == password:
+        if not user == {} and user[1]["password"] == password:
             return jsonify({"message": "Login successful."}), 200
         else:
             return jsonify({"message": "Invalid username or password."}), 403
@@ -152,6 +160,7 @@ def login():
 @app.route("/register", methods=["POST"])
 def register_user():
     data = request.get_json()
+
     username = data.get("username")
     password = data.get("password")
 
@@ -159,7 +168,7 @@ def register_user():
     if is_valid(username) and is_valid(password):
         mocked_user_insert(username, password)
 
-        return jsonify({"User created"}), 200
+        return jsonify({"message": "User created"}), 200
 
     else:
         return jsonify({"message": "Invalid username or password format"}), 400
