@@ -36,12 +36,13 @@ def mocked_user(username):
 def mocked_user_insert(username, password):
     with open("roomee.store", "r") as mocked_DB:
         fake_DB = json.load(mocked_DB)
-    
+
     # write new user
     fake_DB[get_next_user_id(fake_DB)] = {
-            "username": username,
-            "password": password,
-            "answers": ["test", "test"]}
+        "username": username,
+        "password": password,
+        "answers": ["test", "test"],
+    }
 
     with open("roomee.store", "w") as mocked_DB:
         json.dumps(fake_DB, mocked_DB)
