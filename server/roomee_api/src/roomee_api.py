@@ -34,6 +34,24 @@ def mocked_user(username):
         return search_username(fake_DB, username)
 
 
+def mocked_get_answers(username):
+    with open("roomee.store", "r") as mocked_DB:
+        fake_DB = json.load(mocked_DB)
+        print(fake_DB, file=sys.stderr)
+        print("MOCK CALL", file=sys.stderr)
+        print(username, file=sys.stderr)
+        userSearch = search_username(fake_DB, username)
+        print(userSearch, file=sys.stderr)
+
+        return (userSearch[1])["answers"]
+
+
+def mocked_get_questions():
+    with open("roomee.store", "r") as mocked_DB:
+        fake_DB = json.load(mocked_DB)
+        return fake_DB["questions"]
+
+
 def mocked_user_insert(username, password):
     with open("roomee.store", "r") as mocked_DB:
         fake_DB = json.load(mocked_DB)
@@ -45,8 +63,22 @@ def mocked_user_insert(username, password):
     fake_DB[get_next_user_id(fake_DB)] = {
         "username": username,
         "password": password,
-        "answers": ["test", "test"],
+        "answers": [3, 3],
     }
+
+    file_json_object = json.dumps(fake_DB)
+
+    with open("roomee.store", "w") as mocked_DB:
+        mocked_DB.write(file_json_object)
+
+
+def mocked_user_update_answers(username, answers):
+    with open("roomee.store", "r") as mocked_DB:
+        fake_DB = json.load(mocked_DB)
+
+    user_id, user_data = search_username(fake_DB, username)
+
+    fake_DB[user_id]["answers"] = answers
 
     file_json_object = json.dumps(fake_DB)
 
@@ -88,9 +120,13 @@ def is_valid(dirty_string):
 def get_answers(username):
     if request.method == "GET":
         # Mock list of user answers
-        answer_ids = []
+        # answer_ids = []
 
-        return jsonify({"answer_ids": answer_ids})
+        # return jsonify({"answer_ids": answer_ids})
+        print("GET ANSWERS CALL")
+        print(username)
+        answers = mocked_get_answers(username)
+        return jsonify({"answers": answers})
 
     if request.method == "POST":
         # Fetch answer_id to check
@@ -109,8 +145,11 @@ def get_answers(username):
 # Method to return all questions to an endpoint /api/questions
 @app.route("/questions", methods=["GET"])
 def get_questions():
-    question_ids = []
-    return jsonify({"question_ids": question_ids})
+    # question_ids = []
+    # return jsonify({"question_ids": question_ids})
+
+    questions = mocked_get_questions()
+    return jsonify({"questions": questions})
 
 
 # Method to check if a user exists and create them if they don't
