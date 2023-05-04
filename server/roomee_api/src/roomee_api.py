@@ -64,7 +64,6 @@ def get_answers():
 def get_questions():
     db_conn = mySQL()
     if request.method == "GET":
-
         questions = db_conn.query_all_questions()
         return jsonify({"questions": questions}), 200
 

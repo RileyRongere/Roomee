@@ -18,7 +18,7 @@ def headers():
 
 # Integration tests for client-app interaction
 
-#These two tests break. "json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)" on the json.loads() calls
+# These two tests break. "json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)" on the json.loads() calls
 # # tests response code and data of one correct empty list named answer_ids (as function is implemented 4/27)
 # def test_get_answers(test_client, headers):
 #     post_response = test_client.post(
