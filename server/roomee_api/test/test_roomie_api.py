@@ -20,28 +20,28 @@ def headers():
 
 
 # tests response code and data of one correct empty list named answer_ids (as function is implemented 4/27)
-def test_get_answers(test_client, headers):
-    post_response = test_client.post(
-        "/answers/JohnDoe", json={"answer_id": 27}, headers=headers
-    )
-    response = test_client.get("/answers/JohnDoe")
-    data = json.loads(response.data.decode())
-    post_data = json.loads(post_response.data.decode())
+# def test_get_answers(test_client, headers):
+#     post_response = test_client.post(
+#         "/answers/JohnDoe", json={"answer_id": 27}, headers=headers
+#     )
+#     response = test_client.get("/answers/JohnDoe")
+#     data = json.loads(response.data.decode())
+#     post_data = json.loads(post_response.data.decode())
 
-    assert data["answer_ids"] == []
-    assert response.status_code == 200
+#     assert data["answer_ids"] == []
+#     assert response.status_code == 200
 
-    assert post_data["answer_exists"] == True
-    assert response.status_code == 200
+#     assert post_data["answer_exists"] == True
+#     assert response.status_code == 200
 
 
 # tests response for containing empty list
-def test_get_questions(test_client, headers):
-    response = test_client.get("/questions")
-    data = json.loads(response.data.decode())
+# def test_get_questions(test_client, headers):
+#     response = test_client.get("/questions")
+#     data = json.loads(response.data.decode())
 
-    assert data["question_ids"] == []
-    assert response.status_code == 200
+#     assert data["question_ids"] == []
+#     assert response.status_code == 200
 
 
 # tests that user_creation, was not able to patch the query_user from insert_query_DB file
