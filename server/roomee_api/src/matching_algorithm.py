@@ -119,6 +119,6 @@ def match(user1, user_list, answer_list2):
     return high, med, low
 
 
-high, med, low= match(user1, user_data2, answer_data)
+high, med, low= match(user1, user_data2, answer_data) #This actually needs to get written to a database.
 
 cnx.close()
