@@ -1,4 +1,5 @@
-#Matching Algorithm
+#Matching Algorithm 
+#Authored by Kali Zerwas
 import mysql.connector
 #Load Data:
 cnx = mysql.connector.connect(user='MYSQL_USER', password='MYSQL_PASSWORD',
@@ -39,11 +40,6 @@ with cnx.cursor() as cursor:
 
 
 
-# closing database
-
-
-
-
 #New plan
 
 def distance(user1, user2, question, answer_list):
@@ -68,16 +64,14 @@ def remove(user1, user2, q1, q2, user_list, user, answer_list):
 
 
 def gender(user1, user2, user_list, user, answer_list):
-    #print(answer_list)
     for answer in answer_list:
-        #print(answer)
-        if answer[2]==user1 and answer[1]==23: #question has to be chagned to whatever the gender question id would be 
+        if answer[2]==user1 and answer[1]==23:
             user1_gender_answer=answer[3]
-        if answer[2]==user2 and answer[1]==23: #question has to be chagned to whatever the gender question id would be 
+        if answer[2]==user2 and answer[1]==23: 
             user2_gender_answer=answer[3]
-        if answer[2]==user1 and answer[1]==24: #question has to be chagned to whatever the gender preference question id would be 
+        if answer[2]==user1 and answer[1]==24:  
             user1_pref_answer=answer[3]
-        if answer[2]==user2 and answer[1]==24: #question has to be chagned to whatever the gender preference question id would be 
+        if answer[2]==user2 and answer[1]==24:  
             user2_pref_answer=answer[3]
     if user1_gender_answer != user2_pref_answer and user2_gender_answer != user1_pref_answer:
         user_list.remove(user)
@@ -100,13 +94,13 @@ def match(user1, user_list, answer_list2):
         if user in user_list:
             gender(user1[0], user[0], user_list, user, answer_list3)
         if user in user_list:
-            remove(user1[0], user[0], 11, 12,user_list,user, answer_list3) #Change to be actual id numbers
+            remove(user1[0], user[0], 11, 12,user_list,user, answer_list3) 
         if user in user_list: 
-            remove(user[0], user1[0], 11, 12,user_list,user, answer_list3) #Change to be actual id numbers
+            remove(user[0], user1[0], 11, 12,user_list,user, answer_list3) 
         if user in user_list:
-            remove(user1[0], user[0], 14, 15,user_list,user, answer_list3) #Change to be actual id numbers
+            remove(user1[0], user[0], 14, 15,user_list,user, answer_list3) 
         if user in user_list:
-            remove(user[0], user1[0], 14, 15,user_list,user, answer_list3) #Change to be actual id numbers
+            remove(user[0], user1[0], 14, 15,user_list,user, answer_list3) 
         
     for user in user_list:
 
@@ -115,15 +109,16 @@ def match(user1, user_list, answer_list2):
                     if user in user_list:
                         score=distance(user1[0], user[0], answer[1], answer_list)
                         final_score=final_score+score
-        if final_score > 30:
+        if final_score > 30:  #Need to change these numbers to whatever we think is the appropiate cutoffs
             low.append(user)
         elif final_score  < 15:
             high.append(user)
         else:
             med.append(user)
     print("high", high, "med", med, "low", low)
+    return high, med, low
 
 
-match(user1, user_data2, answer_data)
+high, med, low= match(user1, user_data2, answer_data)
 
 cnx.close()
