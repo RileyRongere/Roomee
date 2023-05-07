@@ -4,7 +4,6 @@ from flask import Flask, request, jsonify
 import os
 import json
 import sys
-from src.insert_query_DB import insert_user, query_user, query_answer
 
 app = Flask(__name__)
 
