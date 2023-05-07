@@ -81,17 +81,17 @@ class Matches:
     python object that serves as the format for Matches to be stored in the database
     """
 
-    def __init__(self, id, user1, user2, percent_match):
+    def __init__(self, id, user1, user2, distance_score):
         self.__id = id
         self.__user1 = user1
         self.__user2 = user2
-        self.__percent_match = percent_match
+        self.__distance_score = distance_score
 
         self.__dictionary = {
             "id": self.__id,
             "user1_id": self.__user1,
             "user2_id": self.__user2,
-            "percent_match": self.__percent_match,
+            "distance_score": self.__distance_score,
         }
 
     def return_dict(self):

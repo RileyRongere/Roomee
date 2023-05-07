@@ -121,4 +121,16 @@ def match(user1, user_list, answer_list2):
 
 high, med, low= match(user1, user_data2, answer_data) #This actually needs to get written to a database.
 
+
+# insert match is in form
+# database.insert_match(user_1, user_2, distance_score)
+# for i in high.length():
+#     cnx.insert_match(user1, user_data2[i], final_score) # need to return score as well? )
+
+# for i in med.length():
+#     cnx.insert_match(user1, user_data2[i], final_score)
+
+# for i in low.length():
+#     cnx.insert_match(user1, user_data2[i], final_score)
+
 cnx.close()
