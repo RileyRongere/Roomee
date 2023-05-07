@@ -90,14 +90,14 @@ def mocked_user_update_answers(username, answers):
 # note that this does not check if the user has been created.
 def get_user(username):
     is_valid(username)
-    user = query_user(username)
+    user = mySQL().query_user(username)
     return user
 
 
 # method to return all answers from the insert_query_DB.py file
 # note that this does not check if the user has completed the quiz.
 def get_answers(id):
-    answers = query_answer(
+    answers = mySQL().query_answer(
         id
     )  ##CHANGE WHEN RILEY CHANGES THE FUNCTION, We wish to have all answers from this call
 
