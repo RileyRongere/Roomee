@@ -17,7 +17,10 @@ services:
     ports:
       - "9906:3306"
     environment:
-      <<: *common-variables
+      # <<: *common-variables
+      MYSQL_DATABASE: roomee
+      MYSQL_USER: MYSQL_USER
+      MYSQL_PASSWORD: MYSQL_PASSWORD
       MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
       MYSQL_HOST: localhost
 

@@ -6,9 +6,26 @@ import json
 import sys
 from src.insert_query_DB import mySQL
 
+#for dummy test
+import mysql.connector
+
 app = Flask(__name__)
 
 # mockedDB for FE testing
+
+#dummy endpoint for testing
+@app.route("/dumb", methods=["GET"])
+def dumb():
+    conn = mysql.connector.connect(user="MYSQL_USER",
+                                   password="MYSQL_PASSWORD",
+                                   host="localhost",
+                                   port="9906",
+                                   database="roomee")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM USER")
+    results = cursor.fetchall()
+
+    return jsonify(results)
 
 
 # helper functions for mockedDB
@@ -182,7 +199,6 @@ def login():
     # Is this what you mean by sanitize? I am removing any leading/trailing whitespace
     if is_valid(email) and is_valid(password):
         user = get_user(email)
-
         if not user == {} and user["password"] == password:
             return jsonify({"user": user, "message": "Login successful."}), 200
         else:
