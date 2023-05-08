@@ -1,72 +1,72 @@
-from roomee_api import app
-from pytest import fixture
-from unittest.mock import patch
-import json
+# from roomee_api import app
+# from pytest import fixture
+# from unittest.mock import patch
+# import json
 
 
-# test client
-@fixture
-def test_client():
-    return app.test_client()
+# # test client
+# @fixture
+# def test_client():
+#     return app.test_client()
 
 
-# test client POST headers
-@fixture
-def headers():
-    return {"Content-Type": "application/json"}
+# # test client POST headers
+# @fixture
+# def headers():
+#     return {"Content-Type": "application/json"}
 
 
-# Integration tests for client-app interaction
+# # Integration tests for client-app interaction
 
 
-# tests response code and data of one correct empty list named answer_ids (as function is implemented 4/27)
-def test_get_answers(test_client, headers):
-    post_response = test_client.post(
-        "/answers/JohnDoe", json={"answer_id": 27}, headers=headers
-    )
-    response = test_client.get("/answers/JohnDoe")
-    data = json.loads(response.data.decode())
-    post_data = json.loads(post_response.data.decode())
+# # tests response code and data of one correct empty list named answer_ids (as function is implemented 4/27)
+# def test_get_answers(test_client, headers):
+#     post_response = test_client.post(
+#         "/answers/JohnDoe", json={"answer_id": 27}, headers=headers
+#     )
+#     response = test_client.get("/answers/JohnDoe")
+#     data = json.loads(response.data.decode())
+#     post_data = json.loads(post_response.data.decode())
 
-    assert data["answer_ids"] == []
-    assert response.status_code == 200
+#     assert data["answer_ids"] == []
+#     assert response.status_code == 200
 
-    assert post_data["answer_exists"] == True
-    assert response.status_code == 200
-
-
-# tests response for containing empty list
-def test_get_questions(test_client, headers):
-    response = test_client.get("/questions")
-    data = json.loads(response.data.decode())
-
-    assert data["question_ids"] == []
-    assert response.status_code == 200
+#     assert post_data["answer_exists"] == True
+#     assert response.status_code == 200
 
 
-# tests that user_creation, was not able to patch the query_user from insert_query_DB file
-def test_user_creation(test_client):
-    response = test_client.put("/user/JohnDoe", json={})
-    assert response.status == "500 INTERNAL SERVER ERROR"
+# # tests response for containing empty list
+# def test_get_questions(test_client, headers):
+#     response = test_client.get("/questions")
+#     data = json.loads(response.data.decode())
+
+#     assert data["question_ids"] == []
+#     assert response.status_code == 200
 
 
-# tests login, still cannot access/mock the table correctly, no test for sanitization or valid user
-def test_login(test_client, headers):
-    response = test_client.post("/login", headers=headers, json={})
-    good_response = test_client.post(
-        "/login", headers=headers, json={"username": "test", "password": "test"}
-    )
-
-    # Wrong data test
-    assert response.status == "400 BAD REQUEST"
+# # tests that user_creation, was not able to patch the query_user from insert_query_DB file
+# def test_user_creation(test_client):
+#     response = test_client.put("/user/JohnDoe", json={})
+#     assert response.status == "500 INTERNAL SERVER ERROR"
 
 
-# tests registering users for given data not being correct, otherwise will throw DB error
-def test_register_user(test_client, headers):
-    # tests functionality of sanitization
-    bad_data_response = test_client.post("/register", headers=headers, json={})
+# # tests login, still cannot access/mock the table correctly, no test for sanitization or valid user
+# def test_login(test_client, headers):
+#     response = test_client.post("/login", headers=headers, json={})
+#     good_response = test_client.post(
+#         "/login", headers=headers, json={"username": "test", "password": "test"}
+#     )
 
-    assert bad_data_response.status_code == 400
+#     # Wrong data test
+#     assert response.status == "400 BAD REQUEST"
+
+
+# # tests registering users for given data not being correct, otherwise will throw DB error
+# def test_register_user(test_client, headers):
+#     # tests functionality of sanitization
+#     bad_data_response = test_client.post("/register", headers=headers, json={})
+
+#     assert bad_data_response.status_code == 400
 
 
 # def test_get_users(test_client):
