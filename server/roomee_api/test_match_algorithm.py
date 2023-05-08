@@ -4,8 +4,10 @@
 # from pytest import fixture
 # from unittest.mock import patch
 
+
 def test():
     pass
+
 
 # def test_distance():
 #     answer_list = [(1, 1, 1, 4), (2, 1, 2, 2), (3, 2, 1, 3), (4, 2, 2, 3)]
