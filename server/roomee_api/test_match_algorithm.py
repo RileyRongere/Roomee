@@ -58,6 +58,6 @@ def test_match():
     ]
     user1 = (1, "Alice")
     user = (2, "Bob")
-    expected_high = [(2, "Bob"), (1, "Alice")]
-    high, med, low = match(user1, user_list, answer_list)
-    assert high == expected_high
+    expected_score = [3,0]
+    final_score = match(user1, user_list, answer_list)
+    assert final_score == expected_score

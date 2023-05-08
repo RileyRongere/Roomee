@@ -97,16 +97,17 @@ def match(user1, user_list, answer_list2):
             remove(user1[0], user[0], 14, 15, user_list, user, answer_list3)
         if user in user_list:
             remove(user[0], user1[0], 14, 15, user_list, user, answer_list3)
-
-    for user in user_list:
+    final_score_list=[]
+    for user in user_list: 
         final_score = 0
         for answer in answer_list:
             if user[0] == answer[2]:
                 if user in user_list:
                     score = distance(user1[0], user[0], answer[1], answer_list)
                     final_score = final_score + score
-    db.insert_match(user1[0], user[0], final_score)
-    return final_score
+        final_score_list.append(final_score)
+        db.insert_match(user1[0], user[0], final_score)
+    return final_score_list
 
 
 final_score = match(user1, user_data2, answer_data)
