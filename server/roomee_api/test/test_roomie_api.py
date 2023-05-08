@@ -1,4 +1,4 @@
-from src.roomee_api import app
+from roomee_api import app
 from pytest import fixture
 from unittest.mock import patch
 import json
