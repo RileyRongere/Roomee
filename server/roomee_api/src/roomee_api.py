@@ -6,21 +6,23 @@ import json
 import sys
 from src.insert_query_DB import mySQL
 
-#for dummy test
+# for dummy test
 import mysql.connector
 
 app = Flask(__name__)
 
 # mockedDB for FE testing
 
-#dummy endpoint for testing
+# dummy endpoint for testing
 @app.route("/dumb", methods=["GET"])
 def dumb():
-    conn = mysql.connector.connect(user="MYSQL_USER",
-                                   password="MYSQL_PASSWORD",
-                                   host="localhost",
-                                   port="9906",
-                                   database="roomee")
+    conn = mysql.connector.connect(
+        user="MYSQL_USER",
+        password="MYSQL_PASSWORD",
+        host="localhost",
+        port="9906",
+        database="roomee",
+    )
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM USER")
     results = cursor.fetchall()
@@ -217,15 +219,21 @@ def register_user():
     password = data.get("password")
 
     # sanitize data
-    if is_valid(email) and is_valid(password):
-        db_conn.insert_user(email, password)
+    db_conn.insert_user(email, password)
 
-        user = get_user(email)
+    user = get_user(email)
 
-        return jsonify({"user": user, "message": "User created"}), 200
+    return jsonify({"user": user, "message": "User created"}), 200
 
-    else:
-        return jsonify({"message": "Invalid email or password format"}), 400
+    # if is_valid(email) and is_valid(password):
+    #     db_conn.insert_user(email, password)
+
+    #     user = get_user(email)
+
+    #     return jsonify({"user": user, "message": "User created"}), 200
+
+    # else:
+    #     return jsonify({"message": "Invalid email or password format"}), 400
 
 
 # Function to generate match in format frontend wants
