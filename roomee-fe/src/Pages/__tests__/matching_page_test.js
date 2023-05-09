@@ -82,3 +82,26 @@ test("Test that clicking the Next button increments the match number", () => {
     expect(screen.getByTestId("match-display")).toHaveTextContent(/Josh/i);
   });
   
+// Tests that the score is displayed.
+test("Test that the score is displayed", () => {
+    render(
+        <MemoryRouter>
+            <Match />
+        </MemoryRouter>
+    );
+    const matchDisplay = screen.getByTestId("match-display");
+    const score = screen.getByText(/100/i); // replace with the score of the first match
+    expect(matchDisplay).toContainElement(score);
+});
+
+// Tests that the correct match is displayed.
+test("Test that the correct match is displayed", () => {
+    render(
+        <MemoryRouter>
+            <Match />
+        </MemoryRouter>
+    );
+    const matchDisplay = screen.getByTestId("match-display");
+    const matchName = screen.getByText(/Ethan/i); // replace with the name of the first match
+    expect(matchDisplay).toContainElement(matchName);
+});
